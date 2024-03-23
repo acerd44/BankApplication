@@ -1,0 +1,25 @@
+﻿@page
+@model BankWeb.Pages.LoansModel
+@{
+}
+
+<table class="table">
+    <tr>
+        <td>Id</td>
+        <td>Belopp</td>
+        <td>Payments</td>
+        <td></td>
+    </tr>
+    @foreach (var loan in Model.Loans)
+    {
+        <tr>
+            <td>@loan.LoanId</td>
+            <td>@loan.Amount</td>
+            <td>@loan.Payments</td>
+            <td>
+                <a asp-page="/Account" asp-route-accountId="@loan.AccountId">See the account</a>
+            </td>
+        </tr>
+    }
+
+</table>
