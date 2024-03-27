@@ -1,4 +1,4 @@
-﻿using BankWeb.Data;
+using BankWeb.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 

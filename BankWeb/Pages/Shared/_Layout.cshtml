@@ -75,10 +75,11 @@
                     <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
+                
             </nav><!-- .navbar -->
-
-            <a href="#about" class="get-started-btn scrollto">Get Started</a>
-
+            <partial name="_LoginPartial" />
+            @* <a href="#about" class="get-started-btn scrollto">Get Started</a> *@
+            
         </div>
     </header><!-- End Header -->
     @RenderBody();
@@ -170,7 +171,7 @@
 
     <!-- Template Main JS File -->
     <script src="~/assets/js/main.js"></script>
-
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 
 </html>
