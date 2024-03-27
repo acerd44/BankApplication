@@ -18,7 +18,7 @@ namespace BankWeb
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            builder.Services.AddRazorPages();
+            builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
             builder.Services.AddTransient<DataInitializer>();
 
             var app = builder.Build();

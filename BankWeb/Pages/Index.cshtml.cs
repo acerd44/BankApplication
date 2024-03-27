@@ -1,5 +1,4 @@
 using BankWeb.Data;
-using BankWeb.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
