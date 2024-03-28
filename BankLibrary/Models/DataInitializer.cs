@@ -1,9 +1,7 @@
-﻿namespace BankWeb.Data;
-
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-
+namespace BankLibrary.Models;
 public class DataInitializer
 {
     private readonly ApplicationDbContext _dbContext;

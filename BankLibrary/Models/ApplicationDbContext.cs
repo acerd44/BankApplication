@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace BankWeb.Data;
+namespace BankLibrary.Models;
 
 public partial class ApplicationDbContext : IdentityDbContext
 {

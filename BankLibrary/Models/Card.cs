@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BankWeb.Data;
+namespace BankLibrary.Models;
 
 public partial class Card
 {
