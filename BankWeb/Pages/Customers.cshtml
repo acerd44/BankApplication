@@ -1,0 +1,50 @@
+﻿@page
+@model BankWeb.Pages.CustomersModel
+@{
+}
+<section id="hero">
+    <div class="container">
+        <table class="table">
+            <td class="col">
+                Id
+                <a asp-page="/Customers" asp-route-sortColumn="Id" asp-route-sortOrder="asc" style="text-decoration: none">
+                    <i class="fa-solid fa-angle-up"></i>
+                </a>
+                <a asp-page="/Customers" asp-route-sortColumn="Id" asp-route-sortOrder="desc" style="text-decoration: none">
+                    <i class="fa-solid fa-angle-down"></i>
+                </a>
+            </td>
+            <td class="col">
+                Name
+                <a asp-page="/Customers" asp-route-sortColumn="Name" asp-route-sortOrder="asc" style="text-decoration: none">
+                    <i class="fa-solid fa-angle-up"></i>
+                </a>
+                <a asp-page="/Customers" asp-route-sortColumn="Name" asp-route-sortOrder="desc" style="text-decoration: none">
+                    <i class="fa-solid fa-angle-down"></i>
+                </a>
+            </td>
+            <td class="col">
+                Country
+                <a asp-page="/Customers" asp-route-sortColumn="Country" asp-route-sortOrder="asc" style="text-decoration: none">
+                    <i class="fa-solid fa-angle-up"></i>
+                </a>
+                <a asp-page="/Customers" asp-route-sortColumn="Country" asp-route-sortOrder="desc" style="text-decoration: none">
+                    <i class="fa-solid fa-angle-down"></i>
+                </a>
+            </td>
+            <td></td>
+
+            @foreach (var customer in Model.Customers)
+            {
+                <tr>
+                    <td>@customer.Id</td>
+                    <td>@customer.Name</td>
+                    <td>@customer.Country</td>
+                    <td>
+                        <a asp-page="/Customers" asp-route-Id="@customer.Id">View</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</section>

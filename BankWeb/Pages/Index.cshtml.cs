@@ -21,7 +21,7 @@ namespace BankWeb.Pages
         {
             Customers = _context.Customers.Count();
             Accounts = _context.Accounts.Count();
-            BalanceSum = _context.Accounts.Sum(a => a.Balance);
+            BalanceSum = _context.Transactions.Sum(t => t.Balance);
         }
     }
 }

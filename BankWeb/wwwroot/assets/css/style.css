@@ -225,6 +225,9 @@ h6 {
             color: #ffc451;
         }
 
+.active {
+    color: #ffc451;
+}
 
 .navbar a,
 .navbar a:focus {

@@ -1,11 +1,11 @@
-using BankWeb.Models;
+using BankLibrary.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace BankWeb.Pages
 {
-    [Authorize(Roles="Admin")]
+    [Authorize(Roles = "Admin")]
     public class LoansModel : PageModel
     {
         private readonly ApplicationDbContext _context;
@@ -16,7 +16,7 @@ namespace BankWeb.Pages
         }
         public void OnGet()
         {
-            Loans  = _context.Loans.Take(50).ToList();
+            Loans = _context.Loans.Take(50).ToList();
         }
     }
 }
