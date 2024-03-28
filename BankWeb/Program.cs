@@ -1,4 +1,5 @@
 using BankLibrary.Models;
+using BankLibrary.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,6 +21,7 @@ namespace BankWeb
 
             builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
             builder.Services.AddTransient<DataInitializer>();
+            builder.Services.AddTransient<ICustomerService, CustomerService>();
 
             var app = builder.Build();
             using (var scope = app.Services.CreateScope())
