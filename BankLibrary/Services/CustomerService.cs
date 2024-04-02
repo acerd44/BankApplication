@@ -1,4 +1,5 @@
-﻿using BankLibrary.Models;
+﻿using BankLibrary.Infrastructure.Paging;
+using BankLibrary.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +15,13 @@ namespace BankLibrary.Services
         {
             _context = context;
         }
-        public IQueryable<Customer> GetCustomers(string sortColumn, string sortOrder)
+        public PagedResult<Customer> GetCustomers(string sortColumn, string sortOrder, int page, string search)
         {
-            var query = _context.Customers.Take(50).AsQueryable();
+            var query = _context.Customers.AsQueryable();
+            if (!string.IsNullOrEmpty(search))
+            {
+                query = query.Where(c => c.Givenname.Contains(search));
+            }
             if (sortColumn == "Id")
             {
                 if (sortOrder == "asc")
@@ -38,7 +43,8 @@ namespace BankLibrary.Services
                 else if (sortOrder == "desc")
                     query = query.OrderByDescending(c => c.Country);
             }
-            return query;
+
+            return query.GetPaged(page, 5);
         }
     }
 }
