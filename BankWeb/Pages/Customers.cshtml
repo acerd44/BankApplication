@@ -72,7 +72,7 @@
                 <td class="text-center" colspan="2">
                     @for (int i = Math.Max(1, Model.CurrentPage - 3); i <= Math.Min(Model.PageCount, Model.CurrentPage + 3); i++)
                     {
-                        <a class="btn @(Model.CurrentPage == i ? "btn-primary" : "btn-secondary")" asp-page="/Customers"
+                        <a class="btn @(Model.CurrentPage == i ? "btn-warning" : "btn-secondary")" asp-page="/Customers"
                            asp-route-search="@Model.Search"
                            asp-route-sortOrder="@Model.SortOrder"
                            asp-route-sortColumn="@Model.SortColumn"
