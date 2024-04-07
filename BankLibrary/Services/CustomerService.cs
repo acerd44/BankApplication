@@ -46,5 +46,20 @@ namespace BankLibrary.Services
 
             return query.GetPaged(page, 5);
         }
+
+        public Customer GetCustomer(int customerId)
+        {
+            return _context.Customers.First(c => c.CustomerId == customerId);
+        }
+
+        public List<Customer> GetCustomers()
+        {
+            return _context.Customers.ToList();
+        }
+
+        public void Update()
+        {
+            _context.SaveChanges();
+        }
     }
 }

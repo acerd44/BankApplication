@@ -5,15 +5,15 @@
 <section id="hero">
     <div class="container text-start">
         <h1 class="text-start">Customers <h2>Page @Model.CurrentPage of @Model.PageCount</h2></h1>
-
-    </div>
-
-    <div class="container">
-        <form class="text-start" method="get">
+        <form class="text-end" method="get">
             <input asp-for="@Model.Search" />
             <input type="hidden" />
             <input type="submit" value="Search" />
         </form>
+    </div>
+
+    <div class="container">
+
         <table class="table table-dark">
             <td class="col">
                 Id
@@ -52,7 +52,7 @@
                     <td>@customer.Name</td>
                     <td>@customer.Country</td>
                     <td>
-                        <a asp-page="/Customers" asp-route-Id="@customer.Id">View</a>
+                        <a asp-page="/Account/Index" asp-route-customerId="@customer.Id" asp-route-customerName="@customer.Name">View</a>
                     </td>
                 </tr>
             }

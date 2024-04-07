@@ -744,10 +744,10 @@ section {
 # Cta
 --------------------------------------------------------------*/
 
-
 .btn-primary {
-    background-color: #ffc451 !important;
+    /*background-color: #ffc451 !important;*/
 }
+
 .cta {
     background: linear-gradient(rgba(2, 2, 2, 0.5), rgba(0, 0, 0, 0.5)), url("../img/cta-bg.jpg") fixed center center;
     background-size: cover;

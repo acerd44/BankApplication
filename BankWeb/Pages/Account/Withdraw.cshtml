@@ -1,0 +1,19 @@
+﻿@page
+@model BankWeb.Pages.Account.WithdrawModel
+@{
+}
+<section id="hero">
+    <div class="container bg-black d-flex justify-content-center align-items-center">
+        <h1>Withdraw</h1>
+        <h2 class="text-start">Balance: @Model.Balance</h2>
+        <form method="post" class="">
+            <div class="form-group">
+                <label class="text-start text-white" asp-for="Amount">Amount</label>
+                <input class="form-control" asp-for="Amount" />
+                <span class="field-validation-error" asp-validation-for="Amount"></span>
+
+            </div>
+            <button type="submit" class="btn btn-warning">Withdraw</button>
+        </form>
+    </div>
+</section>

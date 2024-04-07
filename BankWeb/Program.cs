@@ -21,6 +21,7 @@ namespace BankWeb
             builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
             builder.Services.AddTransient<DataInitializer>();
             builder.Services.AddTransient<ICustomerService, CustomerService>();
+            builder.Services.AddTransient<IAccountService, AccountService>();
 
             var app = builder.Build();
             using (var scope = app.Services.CreateScope())

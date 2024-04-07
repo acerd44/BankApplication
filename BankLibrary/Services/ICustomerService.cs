@@ -11,5 +11,8 @@ namespace BankLibrary.Services
     public interface ICustomerService
     {
         PagedResult<Customer> GetCustomers(string sortColumn, string sortOrder, int page, string search);
+        List<Customer> GetCustomers();
+        Customer GetCustomer(int customerId);
+        void Update();
     }
 }
