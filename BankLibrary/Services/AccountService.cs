@@ -20,7 +20,18 @@ namespace BankLibrary.Services
         {
             return _context.Accounts.Where(a => a.Dispositions.Any(d => d.AccountId == a.AccountId && d.CustomerId == customerId)).ToList();
         }
-
+        public List<Account> GetTop10Accounts(string country)
+        {
+            var top10Ids = _context.Dispositions
+                .Where(d => d.Customer.Country == country)
+                .Select(d => d.AccountId)
+                .Distinct()
+                .OrderByDescending(accId => _context.Accounts.First(a => a.AccountId == accId).Balance)
+                .Take(10)
+                .ToList();
+            return _context.Accounts.Where(a => top10Ids.Contains(a.AccountId))
+                .ToList();
+        }
         public Account GetAccount(int accountId)
         {
             return _context.Accounts.First(a => a.AccountId == accountId);

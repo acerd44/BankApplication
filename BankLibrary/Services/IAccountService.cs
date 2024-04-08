@@ -10,6 +10,7 @@ namespace BankLibrary.Services
     public interface IAccountService
     {
         List<Account> GetAccounts(int customerId);
+        List<Account> GetTop10Accounts(string country);
         Account GetAccount(int accountId);
         ResponseCode Withdraw(int accountId, decimal amount);
         ResponseCode Deposit(int accountId, decimal amount);

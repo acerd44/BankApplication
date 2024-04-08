@@ -11,6 +11,7 @@
             <tr>
                 <th>Account number</th>
                 <th>Balance</th>
+                <th>Country</th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -20,6 +21,7 @@
                 <tr>
                     <td>@acc.AccountNumber</td>
                     <td>@acc.Balance</td>
+                    <td>@acc.Country</td>
                     <td>
                         <a asp-page="Withdraw" asp-route-accountId="@acc.Id">Withdraw <i class="fa-solid fa-money-bill-transfer"></i></a>
                     </td>

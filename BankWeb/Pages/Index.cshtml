@@ -4,6 +4,45 @@
     ViewData["Title"] = "Home";
 }
 <!-- ======= Hero Section ======= -->
-<h2 class="mb-4">Sidebar #07</h2>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<h1 class="mb-4 text-center"><a class="logo">PBank.</a> Lorem ipsum dolor sit amet</h1>
+<p class="pb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+<section class="d-flex align-items-center justify-content-center">
+    <div class="container">
+        <div class="row text-white justify-content-center">
+            <div class="col-md-4 col-xl-3">
+                <div class="card bg-primary order-card">
+                    <div class="card-block">
+                        <h6>Total customers<i class="fa-solid fa-users f-right"></i></h6>
+                        <h5 class="text-center text-white pt-3"><span>@Model.Customers</span></h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-xl-3">
+                <div class="card bg-primary order-card">
+                    <div class="card-block">
+                        <h6>Total Accounts<i class="fa-solid fa-users f-right"></i></h6>
+                        <h5 class="text-center text-white pt-3"><span>@Model.Accounts</span></h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-xl-3">
+                <div class="card bg-primary order-card">
+                    <div class="card-block">
+                        <h6>Total sum traded<i class="fa-solid fa-dollar-sign f-right"></i></h6>
+                        <h5 class="text-white pt-3"><span>SEK @Model.BalanceSum</span></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h2 class="logo text-dark pt-3 text-center">Click any of the four countries to see their top 10 accounts!</h2>
+        <div class="pt-2 row justify-content-center flags">
+            <a asp-area="" asp-page="/Account/Index" asp-route-country="Sweden"><img src="~/images/SE-Sweden-Flag-icon.png" /></a>
+            <a asp-area="" asp-page="/Account/Index" asp-route-country="Denmark"> <img src="~/images/DK-Denmark-Flag-icon.png" /></a>
+            <a asp-area="" asp-page="/Account/Index" asp-route-country="Norway"><img src="~/images/NO-Norway-Flag-icon.png" /></a>
+            <a asp-area="" asp-page="/Account/Index" asp-route-country="Finland"><img src="~/images/FI-Finland-Flag-icon.png" /></a>
+        </div>
+    </div>
+</section>

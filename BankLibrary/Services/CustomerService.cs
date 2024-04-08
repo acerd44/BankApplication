@@ -1,7 +1,9 @@
 ﻿using BankLibrary.Infrastructure.Paging;
 using BankLibrary.Models;
+using ISO3166;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -64,6 +66,37 @@ namespace BankLibrary.Services
             return _context.Customers.ToList();
         }
 
+        public void AddCustomer(Customer customer)
+        {
+            _context.Customers.Add(customer);
+            Update();
+        }
+
+        public string GetCountryCode(string countryName)
+        {
+            CultureInfo currentCulture = CultureInfo.CurrentCulture;
+            CultureInfo swedishCulture = CultureInfo.GetCultureInfo("sv-SE");
+            Country country = Country.List.FirstOrDefault(c => c.Name.Equals(countryName, StringComparison.OrdinalIgnoreCase));
+            if (country != null)
+            {
+                return country.TwoLetterCode;
+            }
+            else
+            {
+                Thread.CurrentThread.CurrentCulture = swedishCulture;
+                Thread.CurrentThread.CurrentUICulture = swedishCulture;
+                country = Country.List.FirstOrDefault(c => c.Name.Equals(countryName, StringComparison.OrdinalIgnoreCase));
+                if (country != null)
+                {
+                    Thread.CurrentThread.CurrentCulture = currentCulture;
+                    Thread.CurrentThread.CurrentUICulture = currentCulture;
+                    return country.TwoLetterCode;
+                }
+            }
+            Thread.CurrentThread.CurrentCulture = currentCulture;
+            Thread.CurrentThread.CurrentUICulture = currentCulture;
+            return "";
+        }
         public void Update()
         {
             _context.SaveChanges();
