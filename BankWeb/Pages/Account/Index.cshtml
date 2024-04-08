@@ -2,39 +2,35 @@
 @model BankWeb.Pages.Account.IndexModel
 @{
 }
-<section id="hero">
-    <div class="container">
-        <div class="card text-white bg-dark">
-            <div class="card-header">
-                <h1>Accounts of @Model.CustomerName</h1>
-            </div>
-            <div class="card-body">
-                <table class="table table-dark">
-                    <tr>
-                        <th>Account number</th>
-                        <th>Balance</th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                    @foreach (var acc in Model.Accounts)
-                    {
-                        <tr>
-                            <td>@acc.AccountNumber</td>
-                            <td>@acc.Balance</td>
-                            <td>
-                                <a asp-page="Withdraw" asp-route-accountId="@acc.Id">Withdraw <i class="fa-solid fa-money-bill-transfer"></i></a>
-                            </td>
-                            <td>
-                                <a asp-page="Deposit" asp-route-accountId="@acc.Id">Deposit <i class="fa-solid fa-money-bill-transfer"></i></a>
-                            </td>
-                            <td>
-                                <a asp-page="Manage" asp-route-accountId="@acc.Id">Manage</a>
-                            </td>
-                        </tr>
-                    }
-                </table>
-            </div>
-        </div>
+<div class="card">
+    <div class="card-header">
+        <h1>All Accounts</h1>
     </div>
-</section>
+    <div class="card-body">
+        <table class="table">
+            <tr>
+                <th>Account number</th>
+                <th>Balance</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            @foreach (var acc in Model.Accounts)
+            {
+                <tr>
+                    <td>@acc.AccountNumber</td>
+                    <td>@acc.Balance</td>
+                    <td>
+                        <a asp-page="Withdraw" asp-route-accountId="@acc.Id">Withdraw <i class="fa-solid fa-money-bill-transfer"></i></a>
+                    </td>
+                    <td>
+                        <a asp-page="Deposit" asp-route-accountId="@acc.Id">Deposit <i class="fa-solid fa-money-bill-transfer"></i></a>
+                    </td>
+                    <td>
+                        <a asp-page="Manage" asp-route-accountId="@acc.Id">Manage</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

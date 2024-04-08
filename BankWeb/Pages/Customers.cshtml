@@ -1,50 +1,52 @@
 ﻿@page
 @model BankWeb.Pages.CustomersModel
 @{
+    ViewData["Title"] = "Customers";
 }
-<section id="hero">
-    <div class="container text-start">
-        <h1 class="text-start">Customers <h2>Page @Model.CurrentPage of @Model.PageCount</h2></h1>
-        <form class="text-end" method="get">
-            <input asp-for="@Model.Search" />
-            <input type="hidden" />
-            <input type="submit" value="Search" />
-        </form>
-    </div>
+<h1 class="text-start">Customers - Page @Model.CurrentPage of @Model.PageCount</h1>
 
-    <div class="container">
+<form class="text-right" method="get">
+    <input asp-for="@Model.Search" />
+    <input type="hidden" />
+    <input type="submit" value="Search" />
+</form>
+<br />
+<div class="">
 
-        <table class="table table-dark">
-            <td class="col">
-                Id
-                <a asp-page="/Customers" asp-route-search="@Model.Search" asp-route-sortColumn="Id" asp-route-sortOrder="asc" style="text-decoration: none">
-                    <i class="fa-solid fa-angle-up"></i>
-                </a>
-                <a asp-page="/Customers" asp-route-search="@Model.Search" asp-route-sortColumn="Id" asp-route-sortOrder="desc" style="text-decoration: none">
-                    <i class="fa-solid fa-angle-down"></i>
-                </a>
-            </td>
-            <td class="col">
-                Name
-                <a asp-page="/Customers" asp-route-search="@Model.Search" asp-route-sortColumn="Name" asp-route-sortOrder="asc" style="text-decoration: none">
-                    <i class="fa-solid fa-angle-up"></i>
-                </a>
-                <a asp-page="/Customers" asp-route-search="@Model.Search" asp-route-sortColumn="Name" asp-route-sortOrder="desc" style="text-decoration: none">
-                    <i class="fa-solid fa-angle-down"></i>
-                </a>
-            </td>
-            <td class="col">
-                Country
-                <a asp-page="/Customers" asp-route-search="@Model.Search" asp-route-sortColumn="Country" asp-route-sortOrder="asc" style="text-decoration: none">
-                    <i class="fa-solid fa-angle-up"></i>
-                </a>
-                <a asp-page="/Customers" asp-route-search="@Model.Search" asp-route-sortColumn="Country" asp-route-sortOrder="desc" style="text-decoration: none">
-                    <i class="fa-solid fa-angle-down"></i>
-                </a>
-            </td>
-            <td>
-            </td>
-
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">
+                    Id
+                    <a asp-page="/Customers" asp-route-search="@Model.Search" asp-route-sortColumn="Id" asp-route-sortOrder="asc" style="text-decoration: none">
+                        <i class="fa-solid fa-angle-up"></i>
+                    </a>
+                    <a asp-page="/Customers" asp-route-search="@Model.Search" asp-route-sortColumn="Id" asp-route-sortOrder="desc" style="text-decoration: none">
+                        <i class="fa-solid fa-angle-down"></i>
+                    </a>
+                </th>
+                <th scope="col">
+                    Name
+                    <a asp-page="/Customers" asp-route-search="@Model.Search" asp-route-sortColumn="Name" asp-route-sortOrder="asc" style="text-decoration: none">
+                        <i class="fa-solid fa-angle-up"></i>
+                    </a>
+                    <a asp-page="/Customers" asp-route-search="@Model.Search" asp-route-sortColumn="Name" asp-route-sortOrder="desc" style="text-decoration: none">
+                        <i class="fa-solid fa-angle-down"></i>
+                    </a>
+                </th>
+                <th scope="col">
+                    Country
+                    <a asp-page="/Customers" asp-route-search="@Model.Search" asp-route-sortColumn="Country" asp-route-sortOrder="asc" style="text-decoration: none">
+                        <i class="fa-solid fa-angle-up"></i>
+                    </a>
+                    <a asp-page="/Customers" asp-route-search="@Model.Search" asp-route-sortColumn="Country" asp-route-sortOrder="desc" style="text-decoration: none">
+                        <i class="fa-solid fa-angle-down"></i>
+                    </a>
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
             @foreach (var customer in Model.Customers)
             {
                 <tr>
@@ -52,7 +54,7 @@
                     <td>@customer.Name</td>
                     <td>@customer.Country</td>
                     <td>
-                        <a asp-page="/Account/Index" asp-route-customerId="@customer.Id" asp-route-customerName="@customer.Name">View</a>
+                        <a asp-page="/Account/Index" asp-route-customerId="@customer.Id" asp-route-customerName="@customer.Name" class="btn btn-primary">View</a>
                     </td>
                 </tr>
             }
@@ -70,9 +72,9 @@
                     }
                 </td>
                 <td class="text-center" colspan="2">
-                    @for (int i = Math.Max(1, Model.CurrentPage - 3); i <= Math.Min(Model.PageCount, Model.CurrentPage + 3); i++)
+                    @for (int i = Math.Max(1, Model.CurrentPage - 5); i <= Math.Min(Model.PageCount, Model.CurrentPage + 5); i++)
                     {
-                        <a class="btn @(Model.CurrentPage == i ? "btn-warning" : "btn-secondary")" asp-page="/Customers"
+                        <a class="btn @(Model.CurrentPage == i ? "btn-primary" : "btn-secondary")" asp-page="/Customers"
                            asp-route-search="@Model.Search"
                            asp-route-sortOrder="@Model.SortOrder"
                            asp-route-sortColumn="@Model.SortColumn"
@@ -96,6 +98,6 @@
                     }
                 </td>
             </tr>
-        </table>
-    </div>
-</section>
+        </tbody>
+    </table>
+</div>
