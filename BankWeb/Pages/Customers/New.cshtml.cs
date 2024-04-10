@@ -71,6 +71,7 @@ namespace BankWeb.Pages.Customers
                     Zipcode = Zipcode
                 };
                 _customerService.AddCustomer(customer);
+                TempData["Message"] = "Customer was created successfully!";
                 return RedirectToPage("Index");
             }
             Genders = _customerService.GetGenderList();

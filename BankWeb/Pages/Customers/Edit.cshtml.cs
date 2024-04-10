@@ -69,6 +69,7 @@ namespace BankWeb.Pages.Customers
             if (delete)
             {
                 _customerService.Delete(customerId);
+                TempData["Message"] = "Delete was successful!";
                 return RedirectToPage("Index");
             }
             else
@@ -88,6 +89,7 @@ namespace BankWeb.Pages.Customers
                     customer.Birthday = Birthday;
                     customer.Telephonenumber = Telephonenumber;
                     customer.NationalId = NationalId;
+                    TempData["Message"] = "Update was successful!";
                     _customerService.Update();
                     return RedirectToPage("Index");
                 }

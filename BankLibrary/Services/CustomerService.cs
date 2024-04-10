@@ -19,7 +19,7 @@ namespace BankLibrary.Services
         }
         public PagedResult<Customer> GetCustomers(string sortColumn, string sortOrder, int page, string search)
         {
-            var query = _context.Customers.AsQueryable();
+            var query = _context.Customers.Where(c => c.IsActive).AsQueryable();
             if (!string.IsNullOrEmpty(search))
             {
                 query = query.Where(c => c.Givenname.Contains(search) || c.City.Contains(search));
@@ -57,7 +57,7 @@ namespace BankLibrary.Services
         }
         public List<Customer> GetCustomers()
         {
-            return _context.Customers.ToList();
+            return _context.Customers.Where(c => c.IsActive).ToList();
         }
         public Customer GetCustomer(int customerId)
         {
@@ -104,7 +104,15 @@ namespace BankLibrary.Services
         }
         public void Delete(int customerId)
         {
-
+            var customer = GetCustomer(customerId);
+            if (_context.Accounts.Where(a => a.AccountId == customerId && a.IsActive).Any())
+            {
+                foreach (var account in _context.Accounts.Where(a => a.AccountId == customerId && a.IsActive))
+                {
+                    account.IsActive = false;
+                }
+            }
+            customer.IsActive = false;
             Update();
         }
     }

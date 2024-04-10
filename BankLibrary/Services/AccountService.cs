@@ -18,7 +18,7 @@ namespace BankLibrary.Services
 
         public List<Account> GetAccounts(int customerId)
         {
-            return _context.Accounts.Where(a => a.Dispositions.Any(d => d.AccountId == a.AccountId && d.CustomerId == customerId)).ToList();
+            return _context.Accounts.Where(a => a.Dispositions.Any(d => d.AccountId == a.AccountId && d.CustomerId == customerId) && a.IsActive).ToList();
         }
         public List<Account> GetTop10Accounts(string country)
         {

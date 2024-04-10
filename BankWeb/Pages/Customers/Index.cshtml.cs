@@ -19,8 +19,10 @@ namespace BankWeb.Pages.Customers
         public string Search { get; set; }
         public int CustomerId { get; set; }
         public int PageCount { get; set; }
+        public string? Message { get; set; }
         public void OnGet(string sortColumn, string sortOrder, int pageNumber, string search)
         {
+            Message = TempData["Message"]?.ToString();
             if (pageNumber == 0) pageNumber = 1;
             CurrentPage = pageNumber;
             SortColumn = sortColumn;
