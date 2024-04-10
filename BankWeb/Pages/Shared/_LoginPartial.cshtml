@@ -7,10 +7,10 @@
     @if (SignInManager.IsSignedIn(User))
     {
         <li>
-            <a class="nav-link scrollto" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
+            <a class="nav-link scrollto" asp-area="Identity" asp-page="/Accounts/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
         </li>
         <li>
-            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
+            <form class="form-inline" asp-area="Identity" asp-page="/Accounts/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
                 <button type="submit" class="nav-link scrollto">Logout</button>
             </form>
         </li>
@@ -18,10 +18,10 @@
     else
     {
         <li>
-            <a class="nav-link scrollto" asp-area="Identity" asp-page="/Account/Register">Register</a>
+            <a class="nav-link scrollto" asp-area="Identity" asp-page="/Accounts/Register">Register</a>
         </li>
         <li>
-            <a class="nav-link scrollto" asp-area="Identity" asp-page="/Account/Login">Login</a>
+            <a class="nav-link scrollto" asp-area="Identity" asp-page="/Accounts/Login">Login</a>
         </li>
     }
 </ul>

@@ -11562,6 +11562,7 @@ h1, h2, h3, h4, h5,
         #sidebar.active .footer {
             display: none;
         }
+
 .logo {
     display: block;
     color: #fff;
@@ -11571,25 +11572,32 @@ h1, h2, h3, h4, h5,
     -o-transition: 0.3s;
     transition: 0.3s;
 }
+
+.form-group span .field-validation-error {
+    color: red;
+}
+
 .flags {
     display: flex;
     justify-content: space-between;
     /*gap: 50px;*/
 }
-.flags img {
-    width: 128px;
-    height: auto;
-    margin: 0 25px;
-}
-    #sidebar .logo {
-        display: block;
-        color: #fff;
-        font-weight: 900;
-        padding: 10px 30px;
-        -webkit-transition: 0.3s;
-        -o-transition: 0.3s;
-        transition: 0.3s;
+
+    .flags img {
+        width: 128px;
+        height: auto;
+        margin: 0 25px;
     }
+
+#sidebar .logo {
+    display: block;
+    color: #fff;
+    font-weight: 900;
+    padding: 10px 30px;
+    -webkit-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+}
 
 @media (prefers-reduced-motion: reduce) {
     #sidebar .logo {

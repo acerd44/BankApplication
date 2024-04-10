@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
 
-namespace BankWeb.Pages.Account
+namespace BankWeb.Pages.Accounts
 {
     [BindProperties]
     public class WithdrawModel : PageModel

@@ -1,12 +1,12 @@
 ﻿using BankLibrary.Infrastructure.Paging;
 using BankLibrary.Models;
-using ISO3166;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BankLibrary.Services
 {
@@ -55,51 +55,57 @@ namespace BankLibrary.Services
 
             return query.GetPaged(page, 50);
         }
-
-        public Customer GetCustomer(int customerId)
-        {
-            return _context.Customers.First(c => c.CustomerId == customerId);
-        }
-
         public List<Customer> GetCustomers()
         {
             return _context.Customers.ToList();
         }
-
+        public Customer GetCustomer(int customerId)
+        {
+            return _context.Customers.First(c => c.CustomerId == customerId);
+        }
         public void AddCustomer(Customer customer)
         {
             _context.Customers.Add(customer);
             Update();
         }
-
-        public string GetCountryCode(string countryName)
+        public List<SelectListItem> GetCountryList()
         {
-            CultureInfo currentCulture = CultureInfo.CurrentCulture;
-            CultureInfo swedishCulture = CultureInfo.GetCultureInfo("sv-SE");
-            Country country = Country.List.FirstOrDefault(c => c.Name.Equals(countryName, StringComparison.OrdinalIgnoreCase));
-            if (country != null)
-            {
-                return country.TwoLetterCode;
-            }
-            else
-            {
-                Thread.CurrentThread.CurrentCulture = swedishCulture;
-                Thread.CurrentThread.CurrentUICulture = swedishCulture;
-                country = Country.List.FirstOrDefault(c => c.Name.Equals(countryName, StringComparison.OrdinalIgnoreCase));
-                if (country != null)
+            return Enum.GetValues<Country>()
+                .Select(c => new SelectListItem
                 {
-                    Thread.CurrentThread.CurrentCulture = currentCulture;
-                    Thread.CurrentThread.CurrentUICulture = currentCulture;
-                    return country.TwoLetterCode;
-                }
-            }
-            Thread.CurrentThread.CurrentCulture = currentCulture;
-            Thread.CurrentThread.CurrentUICulture = currentCulture;
-            return "";
+                    Value = c.ToString(),
+                    Text = c.ToString()
+                }).ToList();
+        }
+        public string GetCountry(Country country)
+        {
+            return Enum.GetName(typeof(Country), country)!;
+        }
+        public string GetCountryCode(Country country)
+        {
+            return CountryMapper.GetCountryCode(country);
+        }
+        public List<SelectListItem> GetGenderList()
+        {
+            return Enum.GetValues<Gender>()
+                .Select(c => new SelectListItem
+                {
+                    Value = c.ToString(),
+                    Text = c.ToString()
+                }).ToList();
+        }
+        public string GetGender(Gender gender)
+        {
+            return Enum.GetName(typeof(Gender), gender)!.ToLower();
         }
         public void Update()
         {
             _context.SaveChanges();
+        }
+        public void Delete(int customerId)
+        {
+
+            Update();
         }
     }
 }

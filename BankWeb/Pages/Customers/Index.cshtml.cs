@@ -3,7 +3,7 @@ using BankWeb.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace BankWeb.Pages.Customer
+namespace BankWeb.Pages.Customers
 {
     public class IndexModel : PageModel
     {

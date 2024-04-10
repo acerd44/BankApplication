@@ -1,5 +1,6 @@
 ﻿using BankLibrary.Infrastructure.Paging;
 using BankLibrary.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,12 @@ namespace BankLibrary.Services
         List<Customer> GetCustomers();
         Customer GetCustomer(int customerId);
         void AddCustomer(Customer customer);
+        List<SelectListItem> GetCountryList();
+        string GetCountry(Country country);
+        string GetCountryCode(Country country);
+        List<SelectListItem> GetGenderList();
+        string GetGender(Gender gender);
         void Update();
-        string GetCountryCode(string country);
+        void Delete(int customerId);
     }
 }
