@@ -1,8 +1,97 @@
 ﻿@page
 @model BankWeb.Pages.Customers.ViewModel
 @{
-    ViewData["Title"] = $"Viewing customer {Model.GetHashCode}";
+    ViewData["Title"] = "Viewing customer";
 }
 
-<div class="container">
+<div class="w-50 align-content-center container">
+    <div class="card">
+        <div class="card-header">
+            <h2>@Model.Customer.Givenname @Model.Customer.Surname - Customer ID: @Model.Customer.CustomerId<a asp-page="/Customers/Index" class="btn btn-primary float-right mt-2"><i class="fa-solid fa-arrow-left"></i> Back</a></h2>
+        </div>
+        <div class="card-body">
+            <form>
+                <div class="form-group form-row">
+                    <label class="col-sm-2 col-form-label">First name</label>
+                    <div class="col-sm-4">
+                        <input type="text" readonly class="form-control-plaintext" value="@Model.Customer.Givenname" />
+                    </div>
+                    <label class="col-sm-1 col-form-label">Last-</label>
+                    <div class="col-sm-3">
+                        <input type="text" readonly class="form-control-plaintext" value="@Model.Customer.Surname" />
+                    </div>
+                </div>
+                <div class="form-group form-row">
+                    <label class="col-sm-2 col-form-label">Country</label>
+                    <div class="col-sm-4">
+                        <input type="text" readonly class="form-control-plaintext" value="@Model.Customer.Country" />
+                    </div>
+                    <label class="col-sm-1 col-form-label">City</label>
+                    <div class="col-sm-4">
+                        <input type="text" readonly class="form-control-plaintext" value="@Model.Customer.City" />
+                    </div>
+                </div>
+                <div class="form-group form-row">
+                    <label class="col-sm-2 col-form-label">Street Address</label>
+                    <div class="col-sm-4">
+                        <input type="text" readonly class="form-control-plaintext" value="@Model.Customer.Streetaddress" />
+                    </div>
+                    <label class="col-sm-1 col-form-label">Zipcode</label>
+                    <div class="col-sm-4">
+                        <input type="text" readonly class="form-control-plaintext" value="@Model.Customer.Zipcode" />
+                    </div>
+                </div>
+                <div class="form-group form-row">
+                    <label class="col-sm-2 col-form-label">National Id</label>
+                    <div class="col-sm-4">
+                        <input type="text" readonly class="form-control-plaintext" value="@Model.Customer.NationalId" />
+                    </div>
+                    <label class="col-sm-1 col-form-label">Gender</label>
+                    <div class="col-sm-4">
+                        <input type="text" readonly class="form-control-plaintext" value="@Model.Customer.Gender" />
+                    </div>
+                </div>
+                <div class="form-group form-row">
+                    <label class="col-sm-2 col-form-label">Phone number</label>
+                    <div class="col-sm-4">
+                        <input type="text" readonly class="form-control-plaintext" value="+@Model.Customer.Telephonecountrycode @Model.Customer.Telephonenumber" />
+                    </div>
+                    <label class="col-sm-1 col-form-label">Email</label>
+                    <div class="col-sm-4">
+                        <input type="text" readonly class="form-control-plaintext" value="@Model.Customer.Emailaddress" />
+                    </div>
+                </div>
+            </form>
+
+        </div>
+        @if (Model.Accounts.Count > 0)
+        {
+            <h2 class="card-header">Accounts</h2>
+            <h5 class="card-header">Total Balance: SEK @Model.Accounts.Sum(a => a.Balance)</h5>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Account number</th>
+                        <th scope="col">Created</th>
+                        <th scope="col">Balance</th>
+                        <th scope="col">Details</th>
+                    </tr>
+                </thead>
+                <tbody class="h6">
+                    @foreach (var account in Model.Accounts)
+                    {
+                        <tr>
+                            <td>@account.AccountNumber</td>
+                            <td>@account.Created</td>
+                            <td>SEK @account.Balance</td>
+                            <td>
+                                <a asp-page="/Accounts/Index" asp-route-accountId="@account.Id" class="btn btn-primary"><i class="fa-solid fa-eye"></i> View</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
 </div>

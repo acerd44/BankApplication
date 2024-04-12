@@ -71,7 +71,7 @@ else
                 Street address
             </th>
             <th scope="col">
-                <a class="btn btn-primary" asp-page="/Customers/New" style="text-decoration:none">Add new customer</a>
+                <a class="btn btn-primary" asp-page="/Customers/New" style="text-decoration:none"><i class="fa-solid fa-plus"></i> Add new customer</a>
             </th>
         </tr>
     </thead>
@@ -86,8 +86,8 @@ else
                 <td>@customer.City</td>
                 <td>@customer.Streetaddress</td>
                 <td>
-                    <a asp-page="/Customers/Edit" asp-route-customerId="@customer.Id" asp-route-customerName="@customer.Name" class="btn btn-primary">Edit</a>
-                    <a asp-page="/Accounts/Index" asp-route-customerId="@customer.Id" asp-route-customerName="@customer.Name" class="btn btn-primary">View</a>
+                    <a asp-page="/Customers/Edit" asp-route-customerId="@customer.Id" asp-route-customerName="@customer.Name" class="btn btn-secondary"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                    <a asp-page="/Customers/View" asp-route-customerId="@customer.Id" asp-route-customerName="@customer.Name" class="btn btn-primary"><i class="fa-solid fa-eye"></i> View</a>
                 </td>
             </tr>
         }

@@ -1,11 +1,10 @@
 ﻿@page
-@model WithdrawModel
+@model BankWeb.Pages.Accounts.DepositModel
 @{
-    ViewData["Title"] = "Withdraw";
+    ViewData["Title"] = "Deposit";
 }
 <a asp-page="/Accounts/Index" class="btn btn-primary m-3"><i class="fa-solid fa-arrow-left"></i> Back</a>
 <div class="container w-25 ml-0">
-
     <h1>Withdraw</h1>
     <h3>Balance: SEK @Model.Balance</h3>
     <form method="post">
