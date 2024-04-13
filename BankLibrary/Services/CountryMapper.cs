@@ -36,5 +36,21 @@ namespace BankLibrary.Services
         {
             return Enum.GetName(typeof(CountryCode), CountryMap[country])!;
         }
+
+        public static string GetTelephoneCode(string country)
+        {
+            switch (country)
+            {
+                case "Sweden":
+                    return "46";
+                case "Norway":
+                    return "47";
+                case "Denmark":
+                    return "45";
+                case "Finland":
+                    return "358";
+            }
+            return string.Empty;
+        }
     }
 }

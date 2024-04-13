@@ -18,13 +18,14 @@ else
 {
     <h1 class="text-start">Customers - No result found</h1>
 }
-
-<form class="text-right" method="get">
-    <input asp-for="@Model.Search" />
-    <input type="hidden" />
-    <input type="submit" value="Search" />
-</form>
-<br />
+<div class="float-right">
+    <form class="input-group" method="get">
+        <input asp-for="@Model.Search" placeholder="Search" />
+        <div class="input-group-append ">
+            <button class="btn btn-outline-primary" type="submit"><i class="fa fa-search"></i></button>
+        </div>
+    </form>
+</div>
 <table class="table table-striped w-100">
     <thead>
         <tr>

@@ -2,6 +2,7 @@ using BankLibrary.Services;
 using BankWeb.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace BankWeb.Pages.Customers
 {
@@ -20,9 +21,14 @@ namespace BankWeb.Pages.Customers
         public int CustomerId { get; set; }
         public int PageCount { get; set; }
         public string? Message { get; set; }
-        public void OnGet(string sortColumn, string sortOrder, int pageNumber, string search)
+        public IActionResult OnGet(string sortColumn, string sortOrder, int pageNumber, string search)
         {
             Message = TempData["Message"]?.ToString();
+            if (search != null && int.TryParse(search, out _))
+            {
+                if (_customerService.GetCustomer(int.Parse(search)) != null)
+                    return RedirectToPage("/Customers/View", new { customerId = int.Parse(search) });
+            }
             if (pageNumber == 0) pageNumber = 1;
             CurrentPage = pageNumber;
             SortColumn = sortColumn;
@@ -40,6 +46,7 @@ namespace BankWeb.Pages.Customers
                     City = char.ToUpper(c.City[0]) + c.City.Substring(1).ToLower(),
                     Streetaddress = c.Streetaddress
                 }).ToList();
+            return Page();
         }
     }
 }

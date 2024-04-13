@@ -43,6 +43,7 @@ namespace BankWeb.Pages.Customers
         public string Zipcode { get; set; }
         public DateOnly? Birthday { get; set; }
         public string? Telephonenumber { get; set; }
+        [RegularExpression(@"^\d{6}[A-Z-]\d{3}[a-zA-Z0-9]$", ErrorMessage = "Enter a ten-digit national id, like so: XXXXXX-XXXX")]
         public string? NationalId { get; set; }
         public int CustomerId { get; set; }
         public void OnGet(int customerId)
@@ -77,18 +78,39 @@ namespace BankWeb.Pages.Customers
                 if (ModelState.IsValid)
                 {
                     var customer = _customerService.GetCustomer(customerId);
+                    if (customer.NationalId != NationalId || customer.Emailaddress != Emailaddress)
+                    {
+                        bool proceed = true;
+                        if (_customerService.ValidateEmail(Emailaddress) && customer.Emailaddress != Emailaddress)
+                        {
+                            proceed = false;
+                            ModelState.AddModelError("Emailaddress", "Email address is already in use, please enter another one.");
+                        }
+                        if (_customerService.ValidateNationalId(NationalId) && customer.NationalId != NationalId)
+                        {
+                            proceed = false;
+                            ModelState.AddModelError("NationalId", "National Id is already in use, please enter another one.");
+                        }
+                        if (!proceed)
+                        {
+                            Genders = _customerService.GetGenderList();
+                            Countries = _customerService.GetCountryList();
+                            return Page();
+                        }
+                    }
                     customer.Givenname = Givenname;
                     customer.Surname = Surname;
                     customer.Streetaddress = Streetaddress;
                     customer.Country = _customerService.GetCountry(Country);
                     customer.CountryCode = _customerService.GetCountryCode(Country);
                     customer.City = City;
-                    customer.Emailaddress = Emailaddress;
+                    customer.Emailaddress = Emailaddress ?? string.Empty;
                     customer.Gender = _customerService.GetGender(Gender);
                     customer.Zipcode = Zipcode;
                     customer.Birthday = Birthday;
                     customer.Telephonenumber = Telephonenumber;
-                    customer.NationalId = NationalId;
+                    customer.Telephonecountrycode = _customerService.GetTelephoneCode(customer.Country);
+                    customer.NationalId = NationalId ?? string.Empty;
                     TempData["Message"] = "Update was successful!";
                     _customerService.Update();
                     return RedirectToPage("Index");

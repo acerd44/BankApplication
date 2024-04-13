@@ -1,22 +1,12 @@
 ﻿@page
 @model BankWeb.Pages.Customers.EditModel
 @{
-    ViewData["Title"] = "Edit customer";
-    var updateMessage = ViewData["Message"]?.ToString();
-}
-
-@if (!string.IsNullOrEmpty(updateMessage))
-{
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        @updateMessage
-
-    </div>
+    ViewData["Title"] = $"Editing {Model.Givenname} {Model.Surname}";
 }
 <div class="container align-content-center w-50">
     <div class="card">
         <div class="card-header">
-            <h1>Edit customer <a asp-page="/Customers/Index" class="btn btn-primary float-right mt-3"><i class="fa-solid fa-arrow-left"></i> Back</a></h1>
+            <h1>Edit @Model.Givenname @Model.Surname <a asp-page="/Customers/Index" class="btn btn-primary float-right mt-3"><i class="fa-solid fa-arrow-left"></i> Back</a></h1>
         </div>
 
         <div class="card-body">
@@ -24,57 +14,57 @@
                 <div class="form-group">
                     <label asp-for="Givenname">First Name*</label>
                     <input class="form-control" asp-for="Givenname" required />
-                    <span asp-validation-for="Givenname" class="field-validation-error"></span>
+                    <span asp-validation-for="Givenname" class="field-validation-error text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Surname">Last Name*</label>
                     <input class="form-control" asp-for="Surname" required />
-                    <span asp-validation-for="Surname" class="field-validation-error"></span>
+                    <span asp-validation-for="Surname" class="field-validation-error text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Emailaddress">Email</label>
                     <input type="email" class="form-control" asp-for="Emailaddress" />
-                    <span asp-validation-for="Emailaddress" class="field-validation-error"></span>
+                    <span asp-validation-for="Emailaddress" class="field-validation-error text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Streetaddress">Street address*</label>
                     <input class="form-control" asp-for="Streetaddress" required />
-                    <span asp-validation-for="Streetaddress" class="field-validation-error"></span>
+                    <span asp-validation-for="Streetaddress" class="field-validation-error text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Country">Country*</label>
                     <select class="form-control" asp-for="Country" asp-items="@Model.Countries"></select>
-                    <span asp-validation-for="Country" class="field-validation-error"></span>
+                    <span asp-validation-for="Country" class="field-validation-error text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="City">City*</label>
                     <input class="form-control" asp-for="City" required />
-                    <span asp-validation-for="City" class="field-validation-error"></span>
+                    <span asp-validation-for="City" class="field-validation-error text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Zipcode">Zip Code*</label>
                     <input class="form-control" asp-for="Zipcode" required />
-                    <span asp-validation-for="Zipcode" class="field-validation-error"></span>
+                    <span asp-validation-for="Zipcode" class="field-validation-error text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Birthday">Birthday*</label>
                     <input class="form-control" asp-for="Birthday" type="date" required />
-                    <span asp-validation-for="Birthday" class="field-validation-error"></span>
+                    <span asp-validation-for="Birthday" class="field-validation-error text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="NationalId">National Id</label>
                     <input class="form-control" asp-for="NationalId" />
-                    <span asp-validation-for="NationalId" class="field-validation-error"></span>
+                    <span asp-validation-for="NationalId" class="field-validation-error text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Telephonenumber">Telephone Number</label>
                     <input class="form-control" asp-for="Telephonenumber" />
-                    <span asp-validation-for="Telephonenumber" class="field-validation-error"></span>
+                    <span asp-validation-for="Telephonenumber" class="field-validation-error text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Gender">Gender*</label>
                     <select class="form-control" asp-for="Gender" asp-items="@Model.Genders"></select>
-                    <span asp-validation-for="Gender" class="field-validation-error"></span>
+                    <span asp-validation-for="Gender" class="field-validation-error text-danger"></span>
                 </div>
                 <button asp-route-customerId="@Model.CustomerId" asp-route-delete="false" type="submit" class="btn btn-success"><i class="fa-solid fa-floppy-disk"></i> Update</button>
                 <button asp-route-customerId="@Model.CustomerId" asp-route-delete="true" onclick="return confirm('Are you sure you want to delete this customer?')"

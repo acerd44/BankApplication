@@ -1,13 +1,17 @@
 ﻿@page
 @model BankWeb.Pages.Customers.ViewModel
 @{
-    ViewData["Title"] = "Viewing customer";
+    ViewData["Title"] = $"{Model.Customer.Givenname} {Model.Customer.Surname}";
 }
 
-<div class="w-50 align-content-center container">
+<div class="align-content-center container" style="width: 55%">
     <div class="card">
         <div class="card-header">
-            <h2>@Model.Customer.Givenname @Model.Customer.Surname - Customer ID: @Model.Customer.CustomerId<a asp-page="/Customers/Index" class="btn btn-primary float-right mt-2"><i class="fa-solid fa-arrow-left"></i> Back</a></h2>
+            <h2>
+                @Model.Customer.Givenname @Model.Customer.Surname
+                <a asp-page="/Customers/Index" class="btn btn-primary float-right mt-2"><i class="fa-solid fa-arrow-left"></i> Back</a>
+                <a asp-page="/Customers/Edit" asp-route-customerId="@Model.Customer.CustomerId" class="btn btn-secondary float-right mt-2 mx-3"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+            </h2>
         </div>
         <div class="card-body">
             <form>
@@ -16,7 +20,7 @@
                     <div class="col-sm-4">
                         <input type="text" readonly class="form-control-plaintext" value="@Model.Customer.Givenname" />
                     </div>
-                    <label class="col-sm-1 col-form-label">Last-</label>
+                    <label class="col-sm-1 col-form-label">Last name</label>
                     <div class="col-sm-3">
                         <input type="text" readonly class="form-control-plaintext" value="@Model.Customer.Surname" />
                     </div>
@@ -59,6 +63,16 @@
                     <label class="col-sm-1 col-form-label">Email</label>
                     <div class="col-sm-4">
                         <input type="text" readonly class="form-control-plaintext" value="@Model.Customer.Emailaddress" />
+                    </div>
+                </div>
+                <div class="form-group form-row">
+                    <label class="col-sm-2 col-form-label">Customer Id</label>
+                    <div class="col-sm-4">
+                        <input type="text" readonly class="form-control-plaintext" value="@Model.Customer.CustomerId" />
+                    </div>
+                    <label class="col-sm-1 col-form-label">Active</label>
+                    <div class="col-sm-4">
+                        <input type="text" readonly class="font-weight-bold form-control-plaintext @(@Model.Customer.IsActive ? "text-success" : "text-danger")" value="@Model.Customer.IsActive.ToString()" />
                     </div>
                 </div>
             </form>

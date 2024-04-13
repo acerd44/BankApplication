@@ -55,17 +55,43 @@ namespace BankLibrary.Services
 
             return query.GetPaged(page, 50);
         }
-        public List<Customer> GetCustomers()
+        public List<Customer> GetCustomers(bool active)
         {
-            return _context.Customers.Where(c => c.IsActive).ToList();
+            return _context.Customers.Where(c => c.IsActive == active).ToList();
         }
         public Customer GetCustomer(int customerId)
         {
-            return _context.Customers.First(c => c.CustomerId == customerId);
+            return _context.Customers.FirstOrDefault(c => c.CustomerId == customerId);
+        }
+        public bool ValidateEmail(string email)
+        {
+            return _context.Customers.Any(c => c.Emailaddress == email);
+        }
+        public bool ValidateNationalId(string nationalId)
+        {
+            if (!string.IsNullOrEmpty(nationalId))
+                return _context.Customers.Any(c => c.NationalId == nationalId);
+            return false;
         }
         public void AddCustomer(Customer customer)
         {
             _context.Customers.Add(customer);
+            var account = new Account
+            {
+                Created = DateOnly.FromDateTime(DateTime.Today),
+                Balance = 0,
+                Frequency = "Monthly",
+                IsActive = true,
+            };
+            _context.Accounts.Add(account);
+            Update();
+            var disposition = new Disposition
+            {
+                CustomerId = customer.CustomerId,
+                AccountId = account.AccountId,
+                Type = "OWNER"
+            };
+            account.Dispositions.Add(disposition);
             Update();
         }
         public List<SelectListItem> GetCountryList()
@@ -84,6 +110,10 @@ namespace BankLibrary.Services
         public string GetCountryCode(Country country)
         {
             return CountryMapper.GetCountryCode(country);
+        }
+        public string GetTelephoneCode(string country)
+        {
+            return CountryMapper.GetTelephoneCode(country);
         }
         public List<SelectListItem> GetGenderList()
         {

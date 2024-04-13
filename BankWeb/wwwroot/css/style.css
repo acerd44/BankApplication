@@ -11573,7 +11573,7 @@ h1, h2, h3, h4, h5,
     transition: 0.3s;
 }
 
-.form-group span .field-validation-error {
+.form-group span .field-validation-error text-danger {
     color: red;
 }
 
