@@ -1,0 +1,101 @@
+﻿@page
+@model BankWeb.Pages.Accounts.ViewModel
+@{
+    ViewData["Title"] = "Viewing account";
+}
+@if (Model.Account.Id > 0 && Model.Account != null)
+{
+    <div class="align-content-center container" style="width: 50%">
+        <div class="card">
+            <div class="card-header">
+                <h2>
+                    Account Info
+                    <a asp-page="/Accounts/Index" class="btn btn-primary float-right mt-2"><i class="fa-solid fa-arrow-left"></i> Back</a>
+                    <a asp-page="/Accounts/Withdraw" asp-route-accountId="@Model.Account.Id" class="btn btn-primary float-right mt-2 mx-2"><i class="fa-solid fa-money-bill-transfer"></i> Withdraw</a>
+                    <a asp-page="/Accounts/Deposit" asp-route-accountId="@Model.Account.Id" class="btn btn-primary float-right mt-2"><i class="fa-solid fa-money-bill-transfer"></i> Deposit</a>
+
+                </h2>
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="form-group form-row">
+                        <label class="col-sm-2 col-form-label">Owner</label>
+                        <div class="col-sm-4">
+                            <input type="text" readonly class="form-control-plaintext" value="@Model.Account.Name" />
+                        </div>
+                        <label class="col-form-label" style="flex: 0 0 9%; max-width: 9%;">Id</label>
+                        <div class="col-sm-3">
+                            <input type="text" readonly class="form-control-plaintext" value="@Model.Account.Id" />
+                        </div>
+                    </div>
+                    <div class="form-group form-row">
+                        <label class="col-sm-2 col-form-label">Created</label>
+                        <div class="col-sm-4">
+                            <input type="text" readonly class="form-control-plaintext" value="@Model.Account.Created" />
+                        </div>
+                        <label class="col-form-label" style="flex: 0 0 9%; max-width: 9%;">Balance</label>
+                        <div class="col-sm-3">
+                            <input type="text" readonly class="form-control-plaintext" value="SEK @Model.Account.Balance" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <h2 class="card-header">Transactions</h2>
+            <table class="table" id="transaction-table">
+                <thead>
+                    <tr>
+                        <th scope="col">Transaction Id</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Balance</th>
+                        <th scope="col">Comment</th>
+                    </tr>
+                </thead>
+            </table>
+            <div class="text-center pb-1">
+                <a class="btn btn-primary" href="javascript:showMore();">Show More</a>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="align-content-center container">
+        <h1>
+            This account does not exist.
+            <a asp-page="/Accounts/Index" class="btn btn-primary"><i class="fa-solid fa-arrow-left"></i> Back</a>
+        </h1>
+
+    </div>
+}
+
+@section Scripts {
+    <script>
+        pageNo = 1;
+
+        document.addEventListener("DOMContentLoaded", function () {
+            showMore();
+        });
+
+        function showMore() {
+            fetch("View?handler=ShowMore&pageNo=" + pageNo + "&accountId=@Model.Account.Id")
+                .then((response) => response.json())
+                .then((json) => {
+                    pageNo = pageNo + 1
+                    json.transactions.forEach(drawElements);
+                });
+        }
+        function drawElements(element) {
+            document.querySelector('#transaction-table').innerHTML +=
+                `<tr>
+                    <td>${element.id}</td>
+                    <td>${element.date}</td
+                    <td></td>
+                    <td>SEK ${element.amount}</td>
+                    <td>SEK ${element.balance}</td>
+                    <td>${element.symbol}</td>
+                </tr>`;
+
+        }
+    </script>
+}

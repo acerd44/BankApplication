@@ -22,7 +22,6 @@ namespace BankWeb.Pages.Accounts
                     a => new AccountViewModel
                     {
                         Id = a.AccountId,
-                        AccountNumber = a.AccountId,
                         Balance = a.Balance,
                         Country = country,
                     }).ToList();
@@ -33,7 +32,6 @@ namespace BankWeb.Pages.Accounts
                     a => new AccountViewModel
                     {
                         Id = a.AccountId,
-                        AccountNumber = a.AccountId,
                         Balance = a.Balance
                     }).ToList();
                 CustomerName = customerName;

@@ -11,7 +11,9 @@ namespace BankLibrary.Services
     {
         List<Account> GetAccounts(int customerId);
         List<Account> GetTop10Accounts(string country);
+        List<Transaction> GetMoreTransactionse(int accountId, int pageNo);
         Account GetAccount(int accountId);
+        string GetAccountOwner(int accountId);
         ResponseCode Withdraw(int accountId, decimal amount);
         ResponseCode Deposit(int accountId, decimal amount);
         void Update();

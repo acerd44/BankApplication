@@ -1,4 +1,5 @@
-﻿using BankLibrary.Models;
+﻿using BankLibrary.Infrastructure.Paging;
+using BankLibrary.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace BankLibrary.Services
 
         public List<Account> GetAccounts(int customerId)
         {
-            return _context.Accounts.Where(a => a.Dispositions.Any(d => d.AccountId == a.AccountId && d.CustomerId == customerId) && a.IsActive).ToList();
+            return _context.Accounts.Include(a => a.Transactions).Where(a => a.Dispositions.Any(d => d.AccountId == a.AccountId && d.CustomerId == customerId) && a.IsActive).ToList();
         }
         public List<Account> GetTop10Accounts(string country)
         {
@@ -32,9 +33,23 @@ namespace BankLibrary.Services
             return _context.Accounts.Where(a => top10Ids.Contains(a.AccountId))
                 .ToList();
         }
+        public List<Transaction> GetMoreTransactionse(int accountId, int pageNo)
+        {
+            return _context.Accounts
+                .Where(a => a.AccountId == accountId)
+                .SelectMany(a => a.Transactions)
+                .OrderByDescending(t => t.Date)
+                .GetPaged(pageNo, 20).Results
+                .ToList();
+        }
         public Account GetAccount(int accountId)
         {
-            return _context.Accounts.First(a => a.AccountId == accountId);
+            return _context.Accounts.Include(a => a.Transactions).FirstOrDefault(a => a.AccountId == accountId);
+        }
+        public string GetAccountOwner(int accountId)
+        {
+            var customer = _context.Customers.Where(c => c.Dispositions.Any(d => d.AccountId == accountId)).First();
+            return customer.Givenname + " " + customer.Surname;
         }
         public ResponseCode Deposit(int accountId, decimal amount)
         {
