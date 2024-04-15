@@ -107,11 +107,7 @@ namespace BankLibrary.Services
         public ResponseCode Deposit(int accountId, decimal amount)
         {
             var account = GetAccount(accountId);
-            if (account.Balance < amount)
-            {
-                return ResponseCode.BalanceTooLow;
-            }
-            else if (amount < 100 || amount > 10000)
+            if (amount < 100 || amount > 10000)
             {
                 return ResponseCode.IncorrectAmount;
             }
