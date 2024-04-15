@@ -1,4 +1,7 @@
-﻿<!doctype html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+<!doctype html>
 <html lang="en">
 <head>
     <title>@ViewData["Title"] - Bank</title>
@@ -20,18 +23,34 @@
                 <li class="active">
                     <a asp-area="" asp-page="/Index"><span class="fa fa-home"></span> Home</a>
                 </li>
-                <li>
-                    <a asp-area="" asp-page="/Customers/Index"><span class="fa fa-user"></span> Customers</a>
-                </li>
-                <li>
-                    <a href="#"><span class="fa fa-sticky-note"></span> Blog</a>
-                </li>
-                <li>
-                    <a href="#"><span class="fa fa-cogs"></span> Services</a>
-                </li>
-                <li>
-                    <a href="#"><span class="fa fa-paper-plane"></span> Contacts</a>
-                </li>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <li>
+                        <a asp-area="" asp-page="/Customers/Index"><span class="fa fa-user"></span> Customers</a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-page="/Accounts/Index"><span class="fa fa-credit-card"></span> Accounts</a>
+                    </li>
+                    <li>
+                        <a class="" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><span class="fa fa-user"></span> User</a>
+                    </li>
+                    <li>
+                        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
+                            <button type="submit" class="btn text-light">
+                                <span class="fa fa-right-from-bracket"></span> Logout
+                            </button>
+                        </form>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a class="" asp-area="Identity" asp-page="/Account/Register"><span class="fa fa-user-plus"></span> Register</a>
+                    </li>
+                    <li>
+                        <a class="" asp-area="Identity" asp-page="/Account/Login"><span class="fa fa-right-from-bracket"></span> Login</a>
+                    </li>
+                }
             </ul>
 
             <div class="footer">

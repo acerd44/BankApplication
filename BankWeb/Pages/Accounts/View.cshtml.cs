@@ -1,10 +1,12 @@
 using BankLibrary.Services;
 using BankWeb.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace BankWeb.Pages.Accounts
 {
+    [Authorize(Roles = "Admin, Cashier")]
     public class ViewModel : PageModel
     {
         private readonly IAccountService _accountService;
@@ -43,7 +45,7 @@ namespace BankWeb.Pages.Accounts
         }
         public IActionResult OnGetShowMore(int accountId, int pageNo)
         {
-            var transactionList = _accountService.GetMoreTransactionse(accountId, pageNo).Select(
+            var transactionList = _accountService.GetMoreTransactions(accountId, pageNo).Select(
                 t => new TransactionViewModel
                 {
                     Id = t.TransactionId,

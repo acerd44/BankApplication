@@ -72,7 +72,7 @@ else
                 Street address
             </th>
             <th scope="col">
-                <a class="btn btn-primary" asp-page="/Customers/New" style="text-decoration:none"><i class="fa-solid fa-plus"></i> Add new customer</a>
+                <a class="btn btn-primary" asp-page="/Customers/New" style="text-decoration:none"><i class="fa-solid fa-user-plus"></i> Add new customer</a>
             </th>
         </tr>
     </thead>
@@ -121,7 +121,7 @@ else
             <td>
                 @if (Model.CurrentPage != Model.PageCount && Model.PageCount > 0)
                 {
-                    <a class="btn btn-secondary" asp-page="/Customers/Index"
+                    <a class="btn btn-secondary float-right" asp-page="/Customers/Index"
                        asp-route-search="@Model.Search"
                        asp-route-sortOrder="@Model.SortOrder"
                        asp-route-sortColumn="@Model.SortColumn"

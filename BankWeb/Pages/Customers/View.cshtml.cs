@@ -1,11 +1,13 @@
 using BankLibrary.Models;
 using BankLibrary.Services;
 using BankWeb.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace BankWeb.Pages.Customers
 {
+    [Authorize(Roles = "Admin, Cashier")]
     public class ViewModel : PageModel
     {
         private readonly ICustomerService _customerService;
@@ -40,7 +42,7 @@ namespace BankWeb.Pages.Customers
                     NationalId = customer.NationalId ?? string.Empty,
                     IsActive = customer.IsActive
                 };
-                Accounts = _accountService.GetAccounts(customerId).Select(
+                Accounts = _accountService.GetAccountsOfCustomer(customerId).Select(
                     a => new AccountViewModel
                     {
                         Id = a.AccountId,

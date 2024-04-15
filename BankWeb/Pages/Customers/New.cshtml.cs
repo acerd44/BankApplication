@@ -1,5 +1,6 @@
 using BankLibrary.Models;
 using BankLibrary.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -9,6 +10,7 @@ using System.ComponentModel.DataAnnotations;
 namespace BankWeb.Pages.Customers
 {
     [BindProperties]
+    [Authorize(Roles = "Admin, Cashier")]
     public class NewModel : PageModel
     {
         private readonly ICustomerService _customerService;

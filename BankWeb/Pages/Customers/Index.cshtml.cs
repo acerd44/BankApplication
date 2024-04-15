@@ -1,11 +1,13 @@
 using BankLibrary.Services;
 using BankWeb.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace BankWeb.Pages.Customers
 {
+    [Authorize(Roles = "Admin, Cashier")]
     public class IndexModel : PageModel
     {
         private readonly ICustomerService _customerService;

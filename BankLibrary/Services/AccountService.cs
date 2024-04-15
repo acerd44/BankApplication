@@ -1,6 +1,7 @@
 ﻿using BankLibrary.Infrastructure.Paging;
 using BankLibrary.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,12 +17,34 @@ namespace BankLibrary.Services
         {
             _context = context;
         }
-
-        public List<Account> GetAccounts(int customerId)
+        public PagedResult<Account> GetAccounts(string sortColumn, string sortOrder, int page)
+        {
+            var query = _context.Accounts.Where(c => c.IsActive);
+            if (sortColumn == "Account number")
+            {
+                if (sortOrder == "asc")
+                    query = query.OrderBy(a => a.AccountId);
+                else if (sortOrder == "desc")
+                    query = query.OrderByDescending(a => a.AccountId);
+            }
+            else if (sortColumn == "Balance")
+            {
+                if (sortOrder == "asc")
+                    query = query.OrderBy(a => a.Balance);
+                else if (sortOrder == "desc")
+                    query = query.OrderByDescending(a => a.Balance);
+            }
+            return query.GetPaged(page, 50);
+        }
+        public List<Account> GetAccounts(bool active)
+        {
+            return _context.Accounts.Where(a => a.IsActive == active).ToList();
+        }
+        public List<Account> GetAccountsOfCustomer(int customerId)
         {
             return _context.Accounts.Include(a => a.Transactions).Where(a => a.Dispositions.Any(d => d.AccountId == a.AccountId && d.CustomerId == customerId) && a.IsActive).ToList();
         }
-        public List<Account> GetTop10Accounts(string country)
+        public List<Account> GetTopTenAccountsOfCountry(string country)
         {
             var top10Ids = _context.Dispositions
                 .Where(d => d.Customer.Country == country)
@@ -33,7 +56,7 @@ namespace BankLibrary.Services
             return _context.Accounts.Where(a => top10Ids.Contains(a.AccountId))
                 .ToList();
         }
-        public List<Transaction> GetMoreTransactionse(int accountId, int pageNo)
+        public List<Transaction> GetMoreTransactions(int accountId, int pageNo)
         {
             return _context.Accounts
                 .Where(a => a.AccountId == accountId)
@@ -41,6 +64,36 @@ namespace BankLibrary.Services
                 .OrderByDescending(t => t.Date)
                 .GetPaged(pageNo, 20).Results
                 .ToList();
+        }
+        public void AddTransaction(int accountId, decimal amount, bool withdraw, string symbol)
+        {
+            var account = _context.Accounts.First(a => a.AccountId == accountId);
+            var balance = account.Balance;
+            string operation;
+            string type;
+            if (withdraw)
+            {
+                amount = -amount;
+                type = "Credit";
+                operation = "Credit in Cash";
+            }
+            else
+            {
+                type = "Debit";
+                operation = "Withdrawal in Cash";
+            }
+            var transaction = new Transaction
+            {
+                AccountId = accountId,
+                Amount = amount,
+                Symbol = symbol,
+                Date = DateOnly.FromDateTime(DateTime.Now),
+                Balance = balance,
+                Type = type,
+                Operation = operation
+            };
+            _context.Transactions.Add(transaction);
+            Update();
         }
         public Account GetAccount(int accountId)
         {

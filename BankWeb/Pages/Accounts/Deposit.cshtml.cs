@@ -1,5 +1,6 @@
 using BankLibrary.Models;
 using BankLibrary.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
@@ -7,6 +8,7 @@ using System.ComponentModel.DataAnnotations;
 namespace BankWeb.Pages.Accounts
 {
     [BindProperties]
+    [Authorize(Roles = "Admin, Cashier")]
     public class DepositModel : PageModel
     {
         private readonly IAccountService _accountService;
@@ -31,6 +33,7 @@ namespace BankWeb.Pages.Accounts
             {
                 if (status == BankLibrary.ResponseCode.OK)
                 {
+                    _accountService.AddTransaction(accountId, Amount, false, "");
                     return RedirectToPage("Index");
                 }
             }

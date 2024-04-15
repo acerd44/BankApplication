@@ -1,4 +1,5 @@
 using BankLibrary.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
@@ -6,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 namespace BankWeb.Pages.Accounts
 {
     [BindProperties]
+    [Authorize(Roles = "Admin, Cashier")]
     public class WithdrawModel : PageModel
     {
         private readonly IAccountService _accountService;
@@ -30,6 +32,7 @@ namespace BankWeb.Pages.Accounts
             {
                 if (status == BankLibrary.ResponseCode.OK)
                 {
+                    _accountService.AddTransaction(accountId, Amount, true, "");
                     return RedirectToPage("Index");
                 }
             }

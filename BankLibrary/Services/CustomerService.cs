@@ -52,7 +52,6 @@ namespace BankLibrary.Services
                 else if (sortOrder == "desc")
                     query = query.OrderByDescending(c => c.City);
             }
-
             return query.GetPaged(page, 50);
         }
         public List<Customer> GetCustomers(bool active)

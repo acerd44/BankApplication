@@ -1,4 +1,5 @@
-﻿using BankLibrary.Models;
+﻿using BankLibrary.Infrastructure.Paging;
+using BankLibrary.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,12 @@ namespace BankLibrary.Services
 {
     public interface IAccountService
     {
-        List<Account> GetAccounts(int customerId);
-        List<Account> GetTop10Accounts(string country);
-        List<Transaction> GetMoreTransactionse(int accountId, int pageNo);
+        PagedResult<Account> GetAccounts(string sortColumn, string sortOrder, int page);
+        List<Account> GetAccounts(bool active);
+        List<Account> GetAccountsOfCustomer(int customerId);
+        List<Account> GetTopTenAccountsOfCountry(string country);
+        List<Transaction> GetMoreTransactions(int accountId, int pageNo);
+        void AddTransaction(int accountId, decimal amount, bool withdraw, string symbol);
         Account GetAccount(int accountId);
         string GetAccountOwner(int accountId);
         ResponseCode Withdraw(int accountId, decimal amount);
