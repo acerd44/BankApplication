@@ -32,7 +32,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="Country">Country*</label>
-                    <select class="form-control" asp-for="Country" asp-items="@Model.Countries"></select>
+                    <select class="form-control" asp-for="Country" asp-items="Html.GetEnumSelectList<Country>()"></select>
                     <span asp-validation-for="Country" class="field-validation-error text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -62,7 +62,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="Gender">Gender*</label>
-                    <select class="form-control" asp-for="Gender" asp-items="@Model.Genders"></select>
+                    <select class="form-control" asp-for="Gender" asp-items="Html.GetEnumSelectList<Gender>()"></select>
                     <span asp-validation-for="Gender" class="field-validation-error text-danger"></span>
                 </div>
                 <button type="submit" class="btn btn-success"><i class="fa-solid fa-plus"></i> Create</button>

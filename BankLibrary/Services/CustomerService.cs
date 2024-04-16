@@ -93,36 +93,7 @@ namespace BankLibrary.Services
             account.Dispositions.Add(disposition);
             Update();
         }
-        public List<SelectListItem> GetCountryList()
-        {
-            return Enum.GetValues<Country>()
-                .Select(c => new SelectListItem
-                {
-                    Value = c.ToString(),
-                    Text = c.ToString()
-                }).ToList();
-        }
-        public string GetCountry(Country country)
-        {
-            return Enum.GetName(typeof(Country), country)!;
-        }
-        public string GetCountryCode(Country country)
-        {
-            return CountryMapper.GetCountryCode(country);
-        }
-        public string GetTelephoneCode(string country)
-        {
-            return CountryMapper.GetTelephoneCode(country);
-        }
-        public List<SelectListItem> GetGenderList()
-        {
-            return Enum.GetValues<Gender>()
-                .Select(c => new SelectListItem
-                {
-                    Value = c.ToString(),
-                    Text = c.ToString()
-                }).ToList();
-        }
+
         public string GetGender(Gender gender)
         {
             return Enum.GetName(typeof(Gender), gender)!.ToLower();

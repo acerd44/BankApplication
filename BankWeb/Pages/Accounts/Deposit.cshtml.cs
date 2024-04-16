@@ -31,17 +31,17 @@ namespace BankWeb.Pages.Accounts
             var status = _accountService.Deposit(accountId, Amount);
             if (ModelState.IsValid)
             {
-                if (status == BankLibrary.ResponseCode.OK)
+                if (status == ResponseCode.OK)
                 {
                     _accountService.AddTransaction(accountId, Amount, false, "");
                     return RedirectToPage("Index");
                 }
             }
-            if (status == BankLibrary.ResponseCode.BalanceTooLow)
+            if (status == ResponseCode.BalanceTooLow)
             {
                 ModelState.AddModelError("Amount", "You don't have enough money");
             }
-            else if (status == BankLibrary.ResponseCode.IncorrectAmount)
+            else if (status == ResponseCode.IncorrectAmount)
             {
                 ModelState.AddModelError("Amount", "Please enter an amount between 100 and 10000.");
             }

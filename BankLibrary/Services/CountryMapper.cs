@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BankLibrary.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,23 +7,8 @@ using System.Threading.Tasks;
 
 namespace BankLibrary.Services
 {
-    public enum Country
-    {
-        Choose = 0,
-        Sweden = 1,
-        Norway = 2,
-        Denmark = 3,
-        Finland = 4
-    }
-    public enum CountryCode
-    {
-        NA = 0,
-        SE = 1,
-        NO = 2,
-        DK = 3,
-        FI = 4
-    }
-    public class CountryMapper
+
+    public static class CountryMapper
     {
         private static readonly Dictionary<Country, CountryCode> CountryMap = new Dictionary<Country, CountryCode>
         {
@@ -51,6 +37,10 @@ namespace BankLibrary.Services
                     return "358";
             }
             return string.Empty;
+        }
+        public static string GetCountry(Country country)
+        {
+            return Enum.GetName(typeof(Country), country)!;
         }
     }
 }

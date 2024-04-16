@@ -30,7 +30,6 @@ namespace BankWeb.Pages.Customers
         [Required]
         [Range(1, 4, ErrorMessage = "Please choose a country")]
         public Country Country { get; set; }
-        public List<SelectListItem> Countries { get; set; }
         [StringLength(50)]
         [Required]
         public string City { get; set; }
@@ -41,7 +40,6 @@ namespace BankWeb.Pages.Customers
         [Required]
         [Range(1, 3, ErrorMessage = "Please choose a gender")]
         public Gender Gender { get; set; }
-        public List<SelectListItem> Genders { get; set; }
         [Required]
         public string Zipcode { get; set; }
         public DateOnly? Birthday { get; set; }
@@ -50,8 +48,6 @@ namespace BankWeb.Pages.Customers
         public string? NationalId { get; set; }
         public void OnGet()
         {
-            Genders = _customerService.GetGenderList();
-            Countries = _customerService.GetCountryList();
         }
 
         public IActionResult OnPost()
@@ -64,21 +60,20 @@ namespace BankWeb.Pages.Customers
                         ModelState.AddModelError("Emailaddress", "Email address is already in use, please enter another one.");
                     if (_customerService.ValidateNationalId(NationalId))
                         ModelState.AddModelError("NationalId", "National Id is already in use, please enter another one.");
-                    Genders = _customerService.GetGenderList();
-                    Countries = _customerService.GetCountryList();
                     return Page();
                 }
                 var customer = new Customer
                 {
+                    IsActive = true,
                     Givenname = Givenname,
                     Surname = Surname,
                     Streetaddress = Streetaddress,
-                    Country = _customerService.GetCountry(Country),
-                    CountryCode = _customerService.GetCountryCode(Country),
+                    Country = CountryMapper.GetCountry(Country),
+                    CountryCode = CountryMapper.GetCountryCode(Country),
                     City = City,
                     Birthday = Birthday,
                     Telephonenumber = Telephonenumber ?? string.Empty,
-                    Telephonecountrycode = _customerService.GetTelephoneCode(_customerService.GetCountry(Country)),
+                    Telephonecountrycode = CountryMapper.GetTelephoneCode(CountryMapper.GetCountry(Country)),
                     NationalId = NationalId ?? string.Empty,
                     Gender = _customerService.GetGender(Gender),
                     Emailaddress = Emailaddress ?? string.Empty,
@@ -88,8 +83,6 @@ namespace BankWeb.Pages.Customers
                 TempData["Message"] = "Customer was created successfully!";
                 return RedirectToPage("Index");
             }
-            Genders = _customerService.GetGenderList();
-            Countries = _customerService.GetCountryList();
             return Page();
         }
     }

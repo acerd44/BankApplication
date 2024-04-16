@@ -1,4 +1,6 @@
+using BankLibrary.Infrastructure;
 using BankLibrary.Models;
+using BankLibrary.Models.Migrations;
 using BankLibrary.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -29,7 +31,6 @@ namespace BankWeb.Pages.Customers
         [Required]
         [Range(1, 4, ErrorMessage = "Please choose a country")]
         public Country Country { get; set; }
-        public List<SelectListItem> Countries { get; set; }
         [StringLength(50)]
         [Required]
         public string City { get; set; }
@@ -40,10 +41,10 @@ namespace BankWeb.Pages.Customers
         [Required]
         [Range(1, 3, ErrorMessage = "Please choose a gender")]
         public Gender Gender { get; set; }
-        public List<SelectListItem> Genders { get; set; }
         [Required]
         public string Zipcode { get; set; }
         public DateOnly? Birthday { get; set; }
+        public bool IsActive { get; set; }
         public string? Telephonenumber { get; set; }
         [RegularExpression(@"^\d{6}[A-Z-]\d{3}[a-zA-Z0-9]$", ErrorMessage = "Enter a ten-digit national id, like so: XXXXXX-XXXX")]
         public string? NationalId { get; set; }
@@ -51,9 +52,8 @@ namespace BankWeb.Pages.Customers
         public void OnGet(int customerId)
         {
             CustomerId = customerId;
-            Genders = _customerService.GetGenderList();
-            Countries = _customerService.GetCountryList();
             var customer = _customerService.GetCustomer(customerId);
+            IsActive = customer.IsActive;
             Givenname = customer.Givenname;
             Surname = customer.Surname;
             Streetaddress = customer.Streetaddress;
@@ -67,7 +67,7 @@ namespace BankWeb.Pages.Customers
             NationalId = customer.NationalId;
         }
 
-        public IActionResult OnPost(int customerId, bool delete)
+        public IActionResult OnPost(int customerId, bool delete, bool activate)
         {
             if (delete)
             {
@@ -95,30 +95,31 @@ namespace BankWeb.Pages.Customers
                         }
                         if (!proceed)
                         {
-                            Genders = _customerService.GetGenderList();
-                            Countries = _customerService.GetCountryList();
                             return Page();
                         }
                     }
                     customer.Givenname = Givenname;
                     customer.Surname = Surname;
                     customer.Streetaddress = Streetaddress;
-                    customer.Country = _customerService.GetCountry(Country);
-                    customer.CountryCode = _customerService.GetCountryCode(Country);
+                    customer.Country = CountryMapper.GetCountry(Country);
+                    customer.CountryCode = CountryMapper.GetCountryCode(Country);
                     customer.City = City;
                     customer.Emailaddress = Emailaddress ?? string.Empty;
                     customer.Gender = _customerService.GetGender(Gender);
                     customer.Zipcode = Zipcode;
                     customer.Birthday = Birthday;
                     customer.Telephonenumber = Telephonenumber;
-                    customer.Telephonecountrycode = _customerService.GetTelephoneCode(customer.Country);
+                    customer.Telephonecountrycode = CountryMapper.GetTelephoneCode(customer.Country);
                     customer.NationalId = NationalId ?? string.Empty;
                     TempData["Message"] = "Update was successful!";
+                    if (activate)
+                    {
+                        customer.IsActive = true;
+                        TempData["Message"] = "Update was successful and user was activated!";
+                    }
                     _customerService.Update();
                     return RedirectToPage("Index");
                 }
-                Genders = _customerService.GetGenderList();
-                Countries = _customerService.GetCountryList();
                 return Page();
             }
         }
