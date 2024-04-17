@@ -13,6 +13,7 @@ namespace BankLibrary.Services
     {
         PagedResult<Customer> GetCustomers(string sortColumn, string sortOrder, int page, string search);
         List<Customer> GetCustomers(bool active);
+        List<Customer> GetCustomersFromCountry(string country);
         Customer GetCustomer(int customerId);
         bool ValidateEmail(string email);
         bool ValidateNationalId(string nationalId);

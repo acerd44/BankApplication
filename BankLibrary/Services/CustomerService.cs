@@ -58,6 +58,10 @@ namespace BankLibrary.Services
         {
             return _context.Customers.Where(c => c.IsActive == active).ToList();
         }
+        public List<Customer> GetCustomersFromCountry(string country)
+        {
+            return _context.Customers.Where(c => c.Country == country).Distinct().ToList();
+        }
         public Customer GetCustomer(int customerId)
         {
             return _context.Customers.FirstOrDefault(c => c.CustomerId == customerId);

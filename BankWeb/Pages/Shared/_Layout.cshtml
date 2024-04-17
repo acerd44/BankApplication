@@ -26,20 +26,22 @@
                 @if (SignInManager.IsSignedIn(User))
                 {
                     <li>
-                        <a asp-area="" asp-page="/Customers/Index"><span class="fa fa-user"></span> Customers</a>
+                        <a asp-area="" asp-page="/Customers/Index"><span class="fa fa-users"></span> Customers</a>
                     </li>
                     <li>
                         <a asp-area="" asp-page="/Accounts/Index"><span class="fa fa-credit-card"></span> Accounts</a>
                     </li>
                     <li>
-                        <a class="" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><span class="fa fa-user"></span> User</a>
+                        <a class="" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><span class="fa fa-user"></span>Manage User</a>
                     </li>
                     <li>
-                        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
-                            <button type="submit" class="btn text-light">
-                                <span class="fa fa-right-from-bracket"></span> Logout
-                            </button>
-                        </form>
+                        <a>
+                            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
+                                <button type="submit" class="btn text-light">
+                                    <span class="fa fa-left-from-bracket"></span> Logout
+                                </button>
+                            </form>
+                        </a>
                     </li>
                 }
                 else

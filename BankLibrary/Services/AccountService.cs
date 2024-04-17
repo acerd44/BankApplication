@@ -40,9 +40,13 @@ namespace BankLibrary.Services
         {
             return _context.Accounts.Where(a => a.IsActive == active).ToList();
         }
+        public List<Account> GetAccountsFromCountry(string country)
+        {
+            return _context.Accounts.Where(a => a.Dispositions.Any(d => d.Customer.Country == country)).Distinct().ToList();
+        }
         public List<Account> GetAccountsOfCustomer(int customerId)
         {
-            return _context.Accounts.Include(a => a.Transactions).Where(a => a.Dispositions.Any(d => d.AccountId == a.AccountId && d.CustomerId == customerId) && a.IsActive).ToList();
+            return _context.Accounts.Where(a => a.Dispositions.Any(d => d.AccountId == a.AccountId && d.CustomerId == customerId) && a.IsActive).ToList();
         }
         public List<Account> GetTopTenAccountsOfCountry(string country)
         {
@@ -64,6 +68,10 @@ namespace BankLibrary.Services
                 .OrderByDescending(t => t.Date)
                 .GetPaged(pageNo, 20).Results
                 .ToList();
+        }
+        public decimal GetBalanceOfAccountsFromCountry(string country)
+        {
+            return GetAccountsFromCountry(country).Sum(a => a.Balance);
         }
         public void AddTransaction(int accountId, decimal amount, bool withdraw, string symbol)
         {
