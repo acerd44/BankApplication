@@ -6,6 +6,5 @@
         public int AccountCount { get; set; }
         public int CustomerCount { get; set; }
         public decimal TotalBalance { get; set; }
-        public string ImageLink { get; set; }
     }
 }

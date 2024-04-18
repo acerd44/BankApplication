@@ -11,59 +11,59 @@
         <div class="card-body">
             <form method="post">
                 <div class="form-group">
-                    <label asp-for="Givenname">First Name*</label>
-                    <input class="form-control" asp-for="Givenname" required />
-                    <span asp-validation-for="Givenname" class="field-validation-error text-danger"></span>
+                    <label asp-for="Customer.Givenname">First Name*</label>
+                    <input class="form-control" asp-for="Customer.Givenname" required />
+                    <span asp-validation-for="Customer.Givenname" class="field-validation-error text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Surname">Last Name*</label>
-                    <input class="form-control" asp-for="Surname" required />
-                    <span asp-validation-for="Surname" class="field-validation-error text-danger"></span>
+                    <label asp-for="Customer.Surname">Last Name*</label>
+                    <input class="form-control" asp-for="Customer.Surname" required />
+                    <span asp-validation-for="Customer.Surname" class="field-validation-error text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Emailaddress">Email*</label>
-                    <input type="email" class="form-control" asp-for="Emailaddress" />
-                    <span asp-validation-for="Emailaddress" class="field-validation-error text-danger"></span>
+                    <label asp-for="Customer.Emailaddress">Email*</label>
+                    <input type="email" class="form-control" asp-for="Customer.Emailaddress" />
+                    <span asp-validation-for="Customer.Emailaddress" class="field-validation-error text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Streetaddress">Street address*</label>
-                    <input class="form-control" asp-for="Streetaddress" required />
-                    <span asp-validation-for="Streetaddress" class="field-validation-error text-danger"></span>
+                    <label asp-for="Customer.Streetaddress">Street address*</label>
+                    <input class="form-control" asp-for="Customer.Streetaddress" required />
+                    <span asp-validation-for="Customer.Streetaddress" class="field-validation-error text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Country">Country*</label>
-                    <select class="form-control" asp-for="Country" asp-items="Html.GetEnumSelectList<Country>()"></select>
-                    <span asp-validation-for="Country" class="field-validation-error text-danger"></span>
+                    <label asp-for="Customer.Country">Country*</label>
+                    <select class="form-control" asp-for="Customer.Country" asp-items="Html.GetEnumSelectList<Country>()"></select>
+                    <span asp-validation-for="Customer.Country" class="field-validation-error text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="City">City*</label>
-                    <input class="form-control" asp-for="City" required />
-                    <span asp-validation-for="City" class="field-validation-error text-danger"></span>
+                    <label asp-for="Customer.City">City*</label>
+                    <input class="form-control" asp-for="Customer.City" required />
+                    <span asp-validation-for="Customer.City" class="field-validation-error text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Zipcode">Zip Code*</label>
-                    <input class="form-control" asp-for="Zipcode" required />
-                    <span asp-validation-for="Zipcode" class="field-validation-error text-danger"></span>
+                    <label asp-for="Customer.Zipcode">Zip Code*</label>
+                    <input class="form-control" asp-for="Customer.Zipcode" required />
+                    <span asp-validation-for="Customer.Zipcode" class="field-validation-error text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Birthday">Birthday*</label>
-                    <input class="form-control" asp-for="Birthday" type="date" required />
-                    <span asp-validation-for="Birthday" class="field-validation-error text-danger"></span>
+                    <label asp-for="Customer.Birthday">Birthday*</label>
+                    <input class="form-control" asp-for="Customer.Birthday" type="date" required />
+                    <span asp-validation-for="Customer.Birthday" class="field-validation-error text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="NationalId">National Id</label>
-                    <input class="form-control" asp-for="NationalId" />
-                    <span asp-validation-for="NationalId" class="field-validation-error text-danger"></span>
+                    <label asp-for="Customer.NationalId">National Id</label>
+                    <input class="form-control" asp-for="Customer.NationalId" />
+                    <span asp-validation-for="Customer.NationalId" class="field-validation-error text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Telephonenumber">Telephone Number</label>
-                    <input class="form-control" asp-for="Telephonenumber" />
-                    <span asp-validation-for="Telephonenumber" class="field-validation-error text-danger"></span>
+                    <label asp-for="Customer.Telephonenumber">Telephone Number</label>
+                    <input class="form-control" asp-for="Customer.Telephonenumber" />
+                    <span asp-validation-for="Customer.Telephonenumber" class="field-validation-error text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Gender">Gender*</label>
-                    <select class="form-control" asp-for="Gender" asp-items="Html.GetEnumSelectList<Gender>()"></select>
-                    <span asp-validation-for="Gender" class="field-validation-error text-danger"></span>
+                    <label asp-for="Customer.Gender">Gender*</label>
+                    <select class="form-control" asp-for="Customer.Gender" asp-items="Html.GetEnumSelectList<Gender>()"></select>
+                    <span asp-validation-for="Customer.Gender" class="field-validation-error text-danger"></span>
                 </div>
                 <button type="submit" class="btn btn-success"><i class="fa-solid fa-plus"></i> Create</button>
             </form>

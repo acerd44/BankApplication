@@ -1,0 +1,24 @@
+﻿@page
+@model BankWeb.Pages.Customers.TopTenModel
+@{
+    ViewData["Title"] = $"Top Ten Customers in {@Model.Country}";
+}
+
+<h1 class="text-start">Top Ten Customers in @Model.Country</h1>
+<table class="table table-striped w-100">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Total Balance</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var customer in Model.TopTenCustomers)
+        {
+            <tr>
+                <td>@customer.Name</td>
+                <td>SEK @customer.Balance</td>
+            </tr>
+        }
+    </tbody>
+</table>

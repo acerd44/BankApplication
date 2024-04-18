@@ -1,5 +1,6 @@
 ﻿using BankLibrary.Infrastructure.Paging;
 using BankLibrary.Models;
+using BankLibrary.ViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,8 @@ namespace BankLibrary.Services
     {
         PagedResult<Customer> GetCustomers(string sortColumn, string sortOrder, int page, string search);
         List<Customer> GetCustomers(bool active);
-        List<Customer> GetCustomersFromCountry(string country);
+        List<Customer> GetCustomers(string country);
+        List<TopTenCustomerViewModel> GetTopTenCustomers(string country);
         Customer GetCustomer(int customerId);
         bool ValidateEmail(string email);
         bool ValidateNationalId(string nationalId);

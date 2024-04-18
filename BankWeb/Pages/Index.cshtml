@@ -3,16 +3,26 @@
 @{
     ViewData["Title"] = "Home";
 }
-<!-- ======= Hero Section ======= -->
-<h1 class="mb-4 text-center"><a class="logo">PBank.</a> Lorem ipsum dolor sit amet</h1>
-<p class="pb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<h1 class="mb-4 text-center"><a class="logo">PBank.</a></h1>
 
-<section class="d-flex align-items-center justify-content-center">
-    <div class="container">
-        <h2 class="logo text-dark pt-3 text-center">Click any of the four countries to see their top 10 customers!</h2>
-        @foreach (var country in Model.CountryStatistics)
-        {
-            <partial name="_CountryStatisticPartial" model="@country" />
-        }
-    </div>
-</section>
+<h2 class="logo text-dark text-center">Click any of the four countries to see their top 10 customers!</h2>
+<div class="row text-white justify-content-center">
+    @foreach (var country in Model.CountryStatistics)
+    {
+        <partial name="_CountryCustomerStatisticPartial" model="@country" />
+    }
+</div>
+
+<div class="row text-white justify-content-center">
+    @foreach (var country in Model.CountryStatistics)
+    {
+        <partial name="_CountryAccountStatisticPartial" model="@country" />
+    }
+</div>
+
+<div class="row text-white justify-content-center">
+    @foreach (var country in Model.CountryStatistics)
+    {
+        <partial name="_CountryBalanceStatisticPartial" model="@country" />
+    }
+</div>

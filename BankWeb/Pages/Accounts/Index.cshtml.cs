@@ -32,7 +32,7 @@ namespace BankWeb.Pages.Accounts
             {
                 ShowCountry = true;
                 Country = country;
-                Accounts = _accountService.GetTopTenAccountsOfCountry(country).Select(
+                Accounts = _accountService.GetTopTenAccounts(country).Select(
                     a => new AccountViewModel
                     {
                         Id = a.AccountId,

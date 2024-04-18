@@ -13,7 +13,13 @@ namespace BankLibrary.Infrastructure
     {
         public AutoMapperProfile()
         {
-            CreateMap<CustomerViewModel, Customer>();
+            CreateMap<Customer, CRUDCustomerViewModel>()
+                        .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => Enum.Parse(typeof(Gender), char.ToUpper(src.Gender[0]) + src.Gender.Substring(1))))
+                        .ForMember(dest => dest.Country, opt => opt.MapFrom(src => Enum.Parse(typeof(Country), src.Country)));
+
+            CreateMap<CRUDCustomerViewModel, Customer>()
+                .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.Gender.ToString()))
+                .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Country.ToString()));
         }
     }
 }

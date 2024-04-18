@@ -12,11 +12,11 @@ namespace BankLibrary.Services
     {
         PagedResult<Account> GetAccounts(string sortColumn, string sortOrder, int page);
         List<Account> GetAccounts(bool active);
-        List<Account> GetAccountsFromCountry(string country);
+        List<Account> GetAccounts(string country);
         List<Account> GetAccountsOfCustomer(int customerId);
-        List<Account> GetTopTenAccountsOfCountry(string country);
+        List<Account> GetTopTenAccounts(string country);
         List<Transaction> GetMoreTransactions(int accountId, int pageNo);
-        decimal GetBalanceOfAccountsFromCountry(string country);
+        decimal GetBalanceOfAccounts(string country);
         void AddTransaction(int accountId, decimal amount, bool withdraw, string symbol);
         Account GetAccount(int accountId);
         string GetAccountOwner(int accountId);

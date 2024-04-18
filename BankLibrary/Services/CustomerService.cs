@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using BankLibrary.ViewModels;
 
 namespace BankLibrary.Services
 {
@@ -58,9 +59,23 @@ namespace BankLibrary.Services
         {
             return _context.Customers.Where(c => c.IsActive == active).ToList();
         }
-        public List<Customer> GetCustomersFromCountry(string country)
+        public List<Customer> GetCustomers(string country)
         {
             return _context.Customers.Where(c => c.Country == country).Distinct().ToList();
+        }
+        public List<TopTenCustomerViewModel> GetTopTenCustomers(string country)
+        {
+            return _context.Customers
+                .Where(c => c.Country == country)
+                .Select(
+                c => new TopTenCustomerViewModel
+                {
+                    Id = c.CustomerId,
+                    Name = c.Givenname + " " + c.Surname,
+                    Balance = c.Dispositions.Select(d => d.Account.Balance).Sum()
+                }).OrderByDescending(c => c.Balance)
+                .Take(10)
+                .ToList();
         }
         public Customer GetCustomer(int customerId)
         {

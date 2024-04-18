@@ -16,7 +16,6 @@ namespace BankWeb.Pages
             _customerService = customerService;
             _accountService = accountService;
         }
-
         public void OnGet()
         {
             CountryStatistics = new()
@@ -24,34 +23,30 @@ namespace BankWeb.Pages
                 new CountryStatisticViewModel
                 {
                     Country = "Sweden",
-                    AccountCount = _accountService.GetAccountsFromCountry("Sweden").Count(),
-                    CustomerCount = _customerService.GetCustomersFromCountry("Sweden").Count(),
-                    TotalBalance = _accountService.GetBalanceOfAccountsFromCountry("Sweden"),
-                    ImageLink = "~/images/SE-Sweden-Flag-icon.png"
+                    AccountCount = _accountService.GetAccounts("Sweden").Count(),
+                    CustomerCount = _customerService.GetCustomers("Sweden").Count(),
+                    TotalBalance = _accountService.GetBalanceOfAccounts("Sweden"),
                 },
                 new CountryStatisticViewModel
                 {
                     Country = "Denmark",
-                    AccountCount = _accountService.GetAccountsFromCountry("Denmark").Count(),
-                    CustomerCount = _customerService.GetCustomersFromCountry("Denmark").Count(),
-                    TotalBalance = _accountService.GetBalanceOfAccountsFromCountry("Denmark"),
-                    ImageLink = "~/images/DK-Denmark-Flag-icon.png"
+                    AccountCount = _accountService.GetAccounts("Denmark").Count(),
+                    CustomerCount = _customerService.GetCustomers("Denmark").Count(),
+                    TotalBalance = _accountService.GetBalanceOfAccounts("Denmark"),
                 },
                 new CountryStatisticViewModel
                 {
                     Country = "Norway",
-                    AccountCount = _accountService.GetAccountsFromCountry("Norway").Count(),
-                    CustomerCount = _customerService.GetCustomersFromCountry("Norway").Count(),
-                    TotalBalance = _accountService.GetBalanceOfAccountsFromCountry("Norway"),
-                    ImageLink = "~/images/NO-Norway-Flag-icon.png"
+                    AccountCount = _accountService.GetAccounts("Norway").Count(),
+                    CustomerCount = _customerService.GetCustomers("Norway").Count(),
+                    TotalBalance = _accountService.GetBalanceOfAccounts("Norway"),
                 },
                 new CountryStatisticViewModel
                 {
                     Country = "Finland",
-                    AccountCount = _accountService.GetAccountsFromCountry("Finland").Count(),
-                    CustomerCount = _customerService.GetCustomersFromCountry("Finland").Count(),
-                    TotalBalance = _accountService.GetBalanceOfAccountsFromCountry("Finland"),
-                    ImageLink = "~/images/FI-Finland-Flag-icon.png"
+                    AccountCount = _accountService.GetAccounts("Finland").Count(),
+                    CustomerCount = _customerService.GetCustomers("Finland").Count(),
+                    TotalBalance = _accountService.GetBalanceOfAccounts("Finland"),
                 }
             };
         }
