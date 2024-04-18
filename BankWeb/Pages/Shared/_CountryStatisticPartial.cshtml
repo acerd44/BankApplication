@@ -1,0 +1,30 @@
+﻿@model             CountryStatisticViewModel
+<a class="row justify-content-center" asp-page="/Accounts/Index" asp-route-country="@Model.Country"><img src="@Model.ImageLink" /></a>
+
+<div class="row text-white justify-content-center">
+    <div class="col-md-4 col-xl-4">
+        <div class="card bg-primary order-card">
+            <div class="card-block">
+                <h6>Total customers in @Model.Country<i class="fa-solid fa-users f-right"></i></h6>
+                <h5 class="text-center text-white pt-3"><span>@Model.CustomerCount</span></h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-xl-4">
+        <div class="card bg-primary order-card">
+            <div class="card-block">
+                <h6>Total Accounts in @Model.Country<i class="fa fa-credit-card f-right"></i></h6>
+                <h5 class="text-center text-white pt-3"><span>@Model.AccountCount</span></h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-xl-4">
+        <div class="card bg-primary order-card">
+            <div class="card-block">
+                <h6>Total balance in @Model.Country<i class="fa-solid fa-dollar-sign f-right"></i></h6>
+                <h5 class="text-center text-white pt-3"><span>SEK @Model.TotalBalance</span></h5>
+            </div>
+        </div>
+    </div>
+</div>

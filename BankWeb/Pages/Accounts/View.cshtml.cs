@@ -1,5 +1,5 @@
 using BankLibrary.Services;
-using BankWeb.ViewModels;
+using BankLibrary.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -14,13 +14,6 @@ namespace BankWeb.Pages.Accounts
         {
             _accountService = accountService;
         }
-        // TODO:
-        // TOP 10 CUSTOMERS INSTEAD OF ACCOUNTS
-        // README
-        // DESIGN IDENTITY, AT LEAST LOGIN AND REGISTER
-        // ADD CRUD FUNCTIONALITY
-        // AUTHENTICATION
-        // A WAY TO SEE INACTIVE CUSTOMERS
         public AccountViewModel Account { get; set; }
         public List<TransactionViewModel> Transactions { get; set; }
         public void OnGet(int accountId)

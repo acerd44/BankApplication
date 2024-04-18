@@ -1,3 +1,4 @@
+using AutoMapper;
 using BankLibrary.Models;
 using BankLibrary.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -14,9 +15,11 @@ namespace BankWeb.Pages.Customers
     public class NewModel : PageModel
     {
         private readonly ICustomerService _customerService;
-        public NewModel(ICustomerService customerService)
+        private readonly IMapper _mapper;
+        public NewModel(ICustomerService customerService, IMapper mapper)
         {
             _customerService = customerService;
+            _mapper = mapper;
         }
         [MaxLength(20)]
         [Required]

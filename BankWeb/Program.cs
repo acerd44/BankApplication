@@ -3,6 +3,7 @@ using BankLibrary.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace BankWeb
 {
@@ -22,6 +23,7 @@ namespace BankWeb
             builder.Services.AddTransient<DataInitializer>();
             builder.Services.AddTransient<ICustomerService, CustomerService>();
             builder.Services.AddTransient<IAccountService, AccountService>();
+            builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
             builder.Services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = "/Identity/Account/Login";
