@@ -1,0 +1,18 @@
+﻿@page
+@model BankWeb.Pages.Accounts.DepositModel
+@{
+    ViewData["Title"] = "Deposit";
+}
+<a asp-page="/Accounts/Index" class="btn btn-primary m-3"><i class="fa-solid fa-arrow-left"></i> Back</a>
+<div class="container w-25 ml-0">
+    <h1>Withdraw</h1>
+    <h3>Balance: SEK @Model.Balance</h3>
+    <form method="post">
+        <div class="form-group">
+            <label asp-for="Amount">Amount</label>
+            <input class="form-control" asp-for="Amount" />
+            <span class="field-validation-error text-danger" asp-validation-for="Amount"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Withdraw</button>
+    </form>
+</div>

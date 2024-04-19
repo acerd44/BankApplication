@@ -1,0 +1,86 @@
+﻿@page
+@model BankWeb.Pages.Customers.EditModel
+@{
+    ViewData["Title"] = $"Editing {Model.Customer.Givenname} {Model.Customer.Surname}";
+}
+<div class="container align-content-center w-50">
+    <div class="card">
+        <div class="card-header">
+            <h1>Edit @Model.Customer.Givenname @Model.Customer.Surname <a asp-page="/Customers/Index" class="btn btn-primary float-right mt-3"><i class="fa-solid fa-arrow-left"></i> Back</a></h1>
+        </div>
+
+        <div class="card-body">
+            <form method="post">
+                <div class="form-group">
+                    <label asp-for="Customer.Givenname">First Name*</label>
+                    <input class="form-control" asp-for="Customer.Givenname" required />
+                    <span asp-validation-for="Customer.Givenname" class="field-validation-error text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Customer.Surname">Last Name*</label>
+                    <input class="form-control" asp-for="Customer.Surname" required />
+                    <span asp-validation-for="Customer.Surname" class="field-validation-error text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Customer.Emailaddress">Email</label>
+                    <input type="email" class="form-control" asp-for="Customer.Emailaddress" />
+                    <span asp-validation-for="Customer.Emailaddress" class="field-validation-error text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Customer.Streetaddress">Street address*</label>
+                    <input class="form-control" asp-for="Customer.Streetaddress" required />
+                    <span asp-validation-for="Customer.Streetaddress" class="field-validation-error text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Customer.Country">Country*</label>
+                    <select class="form-control" asp-for="Customer.Country" asp-items="Html.GetEnumSelectList<Country>()"></select>
+                    <span asp-validation-for="Customer.Country" class="field-validation-error text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Customer.City">City*</label>
+                    <input class="form-control" asp-for="Customer.City" required />
+                    <span asp-validation-for="Customer.City" class="field-validation-error text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Customer.Zipcode">Zip Code*</label>
+                    <input class="form-control" asp-for="Customer.Zipcode" required />
+                    <span asp-validation-for="Customer.Zipcode" class="field-validation-error text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Customer.Birthday">Birthday*</label>
+                    <input class="form-control" asp-for="Customer.Birthday" type="date" required />
+                    <span asp-validation-for="Customer.Birthday" class="field-validation-error text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Customer.NationalId">National Id</label>
+                    <input class="form-control" asp-for="Customer.NationalId" />
+                    <span asp-validation-for="Customer.NationalId" class="field-validation-error text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Customer.Telephonenumber">Telephone Number</label>
+                    <input class="form-control" asp-for="Customer.Telephonenumber" />
+                    <span asp-validation-for="Customer.Telephonenumber" class="field-validation-error text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Customer.Gender">Gender*</label>
+                    <select class="form-control" asp-for="Customer.Gender" asp-items="Html.GetEnumSelectList<Gender>()">
+                    </select>
+                    <span asp-validation-for="Customer.Gender" class="field-validation-error text-danger"></span>
+                </div>
+                <button asp-route-customerId="@Model.CustomerId" asp-route-delete="false" type="submit" class="btn btn-success float-left"><i class="fa-solid fa-floppy-disk"></i> Update</button>
+                @if (!Model.Customer.IsActive)
+                {
+                    <button asp-route-customerId="@Model.CustomerId" asp-route-activate="true" type="submit" class="btn btn-success float-right"><i class="fa-solid fa-power-off"></i> Activate</button>
+                }
+                else
+                {
+                    <button asp-route-customerId="@Model.CustomerId" asp-route-delete="true" onclick="return confirm('Are you sure you want to deactivate this customer?')"
+                            class="btn btn-danger float-right">
+                        <i class="fa-solid fa-trash"></i> Deactivate
+                    </button>
+                }
+
+            </form>
+        </div>
+    </div>
+</div>

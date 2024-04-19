@@ -1,0 +1,12 @@
+﻿@model BankLibrary.ViewModels.CountryStatisticViewModel
+
+
+<div class="pb-2 col-md-5 col-xl-3">
+    <a class="row justify-content-center" asp-page="/Customers/TopTen" asp-route-country="@Model.Country"><img src="~/images/@Model.Country-Flag-icon.png" /></a>
+    <div class="card bg-primary order-card">
+        <div class="card-block">
+            <h6>Total customers in @Model.Country<i class="fa-solid fa-users f-right"></i></h6>
+            <h6 class="text-center text-white pt-3"><span>@Model.CustomerCount</span></h6>
+        </div>
+    </div>
+</div>

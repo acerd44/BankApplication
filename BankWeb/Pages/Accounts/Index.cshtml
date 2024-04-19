@@ -1,0 +1,145 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Accounts";
+}
+@if (@Model.Message != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        @Model.Message
+    </div>
+}
+@if (Model.PageCount > 0)
+{
+    <h1 class="text-start">Accounts - Page @Model.CurrentPage of @Model.PageCount</h1>
+}
+else if (!Model.ShowCountry)
+{
+    <h1 class="text-start">Accounts - No result found</h1>
+}
+else
+{
+    <h1 class="text-start">Top Ten Accounts in @Model.Country</h1>
+}
+<div class="float-right">
+    <form class="input-group" method="get">
+        <input asp-for="@Model.Search" placeholder="Search" />
+        <div class="input-group-append ">
+            <button class="btn btn-outline-primary" type="submit"><i class="fa fa-search"></i></button>
+        </div>
+    </form>
+</div>
+<table class="table table-striped w-100">
+    <thead>
+        <tr>
+            @if (Model.ShowCountry)
+            {
+                <th>Account number</th>
+                <th>Account owner</th>
+                <th>Balance</th>
+                <th>Country</th>
+            }
+            else
+            {
+                <th scope="col">
+                    Account number
+                    <a asp-page="/Accounts/Index" asp-route-search="@Model.Search" asp-route-sortColumn="Account number" asp-route-sortOrder="asc" style="text-decoration: none">
+                        <i class="fa-solid fa-angle-up"></i>
+                    </a>
+                    <a asp-page="/Accounts/Index" asp-route-search="@Model.Search" asp-route-sortColumn="Account number" asp-route-sortOrder="desc" style="text-decoration: none">
+                        <i class="fa-solid fa-angle-down"></i>
+                    </a>
+                </th>
+                <th scope="col">
+                    Account owner
+                </th>
+                <th scope="col">
+                    Balance
+                    <a asp-page="/Accounts/Index" asp-route-search="@Model.Search" asp-route-sortColumn="Balance" asp-route-sortOrder="asc" style="text-decoration: none">
+                        <i class="fa-solid fa-angle-up"></i>
+                    </a>
+                    <a asp-page="/Accounts/Index" asp-route-search="@Model.Search" asp-route-sortColumn="Balance" asp-route-sortOrder="desc" style="text-decoration: none">
+                        <i class="fa-solid fa-angle-down"></i>
+                    </a>
+                </th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var acc in Model.Accounts)
+        {
+            <tr>
+                <td>@acc.Id</td>
+                <td>@acc.Name</td>
+                <td>SEK @acc.Balance</td>
+                @if (Model.ShowCountry)
+                {
+                    <td>@acc.Country</td>
+                }
+                else
+                {
+                    <td>
+                    </td>
+                    <td>
+                        <a asp-page="Withdraw" asp-route-accountId="@acc.Id" class="btn btn-primary"><i class="fa-solid fa-money-bill-transfer"></i> Withdraw</a>
+                    </td>
+                    <td>
+                        <a asp-page="Deposit" asp-route-accountId="@acc.Id" class="btn btn-primary"><i class="fa-solid fa-money-bill-transfer"></i> Deposit</a>
+                    </td>
+                    <td>
+                        <a asp-page="View" asp-route-accountId="@acc.Id" class="btn btn-secondary"><i class="fa-solid fa-eye"></i> Manage</a>
+                    </td>
+                }
+            </tr>
+
+        }
+        @if (!Model.ShowCountry)
+        {
+            <tr>
+                <td>
+                    @if (Model.CurrentPage != 1)
+                    {
+                        <a class="btn btn-secondary" asp-page="/Accounts/Index"
+                           asp-route-search="@Model.Search"
+                           asp-route-sortOrder="@Model.SortOrder"
+                           asp-route-sortColumn="@Model.SortColumn"
+                           asp-route-pageNumber="@(Model.CurrentPage-1)">
+                            Prev
+                        </a>
+                    }
+                </td>
+                <td class="text-center" colspan="5">
+                    @for (int i = Math.Max(1, Model.CurrentPage - 5); i <= Math.Min(Model.PageCount, Model.CurrentPage + 5); i++)
+                    {
+                        <a class="btn @(Model.CurrentPage == i ? "btn-primary" : "btn-secondary")" asp-page="/Accounts/Index"
+                           asp-route-search="@Model.Search"
+                           asp-route-sortOrder="@Model.SortOrder"
+                           asp-route-sortColumn="@Model.SortColumn"
+                           asp-route-pageNumber="@i">
+                            @i
+                        </a>
+                    }
+                </td>
+
+                <td>
+                    @if (Model.CurrentPage != Model.PageCount && Model.PageCount > 0)
+                    {
+                        <a class="btn btn-secondary float-right" asp-page="/Accounts/Index"
+                           asp-route-search="@Model.Search"
+                           asp-route-sortOrder="@Model.SortOrder"
+                           asp-route-sortColumn="@Model.SortColumn"
+                           asp-route-pageNumber="@(Model.CurrentPage+1)">
+                            Next
+                        </a>
+
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

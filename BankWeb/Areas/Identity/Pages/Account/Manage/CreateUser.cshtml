@@ -1,0 +1,35 @@
+﻿@page
+@model BankWeb.Areas.Identity.Pages.Account.Manage.CreateUserModel
+@{
+    ViewData["Title"] = "Create user";
+}
+
+<h1>Create User</h1>
+
+<form method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label for="Email">Email/Username</label>
+        <input asp-for="User.Email" class="form-control" />
+        <span asp-validation-for="User.Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="Email">Password</label>
+        <input asp-for="User.Password" class="form-control" type="password" />
+        <span asp-validation-for="User.Password" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="Roles">Roles</label>
+        <select asp-for="User.Roles" class="form-control" asp-items="@(new SelectList(Model.Roles))" multiple></select>
+        <span asp-validation-for="User.Roles" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

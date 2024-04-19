@@ -1,0 +1,38 @@
+﻿@page
+@model BankWeb.Areas.Identity.Pages.Account.Manage.ManageUsersModel
+@{
+    ViewData["Title"] = "Manage Users";
+}
+
+<h3>@ViewData["Title"]</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Roles</th>
+            <th>Manage</th>
+            <th>
+                <a asp-page="./CreateUser" class="btn btn-primary">Create User</a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.UsersWithRoles)
+        {
+            <tr>
+                <td>@user.UserName</td>
+                <td>@string.Join(", ", user.Roles)</td>
+                <td>
+                    <a asp-page="./EditUser" asp-route-userId="@user.UserId" class="btn btn-primary">Manage</a>
+                </td>
+                <td>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
