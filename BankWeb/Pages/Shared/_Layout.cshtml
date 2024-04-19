@@ -23,7 +23,7 @@
                 <li class="active">
                     <a asp-area="" asp-page="/Index"><span class="fa fa-home"></span> Home</a>
                 </li>
-                @if (SignInManager.IsSignedIn(User))
+                @if (SignInManager.IsSignedIn(User) && (User.IsInRole("Admin") || User.IsInRole("Cashier")))
                 {
                     <li>
                         <a asp-area="" asp-page="/Customers/Index"><span class="fa fa-users"></span> Customers</a>

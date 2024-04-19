@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace BankWeb.Areas.Identity.Pages.Account.Manage
 {
@@ -19,7 +20,13 @@ namespace BankWeb.Areas.Identity.Pages.Account.Manage
             _passwordHasher = passwordHasher;
         }
         [BindProperty]
-        public IdentityUserViewModel User { get; set; }
+        public IdentityUserViewModel EditUser { get; set; }
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "New password")]
+        [BindProperty]
+        public string NewPassword { get; set; }
         public List<string> Roles { get; set; }
         public async Task<IActionResult> OnGetAsync(string userId)
         {
@@ -32,11 +39,10 @@ namespace BankWeb.Areas.Identity.Pages.Account.Manage
 
             var roles = await _userManager.GetRolesAsync(user);
 
-            User = new IdentityUserViewModel
+            EditUser = new IdentityUserViewModel
             {
                 UserId = userId,
                 Email = user.Email,
-                Password = user.PasswordHash,
                 UserName = user.UserName,
                 Roles = roles.ToList()
             };
@@ -45,6 +51,8 @@ namespace BankWeb.Areas.Identity.Pages.Account.Manage
         }
         public async Task<IActionResult> OnPostAsync(string userId)
         {
+            ModelState.Remove("EditUser.UserId");
+            ModelState.Remove("EditUser.UserName");
             Roles = await _roleManager.Roles.Select(r => r.Name).ToListAsync();
 
             var user = await _userManager.FindByIdAsync(userId);
@@ -53,9 +61,7 @@ namespace BankWeb.Areas.Identity.Pages.Account.Manage
             {
                 return NotFound();
             }
-            ModelState.Remove("User.UserId");
-            ModelState.Remove("User.UserName");
-            ModelState.Remove("User.Password");
+
             if (Request.Form.TryGetValue("deleteUser", out var _))
             {
                 var deleteResult = await _userManager.DeleteAsync(user);
@@ -77,11 +83,16 @@ namespace BankWeb.Areas.Identity.Pages.Account.Manage
             }
 
 
-            user.Email = User.Email;
-            user.UserName = User.Email;
+            user.Email = EditUser.Email;
+            user.UserName = EditUser.Email;
+            var changePasswordResult = await _userManager.ChangePasswordAsync(user, EditUser.Password, NewPassword);
             var result = await _userManager.UpdateAsync(user);
-
-            if (!result.Succeeded)
+            if (!changePasswordResult.Succeeded)
+            {
+                ModelState.AddModelError("All", "Old password is incorrect");
+                return Page();
+            }
+            else if (!result.Succeeded)
             {
                 foreach (var error in result.Errors)
                 {
@@ -92,7 +103,7 @@ namespace BankWeb.Areas.Identity.Pages.Account.Manage
 
             var rolesToRemove = await _userManager.GetRolesAsync(user);
             await _userManager.RemoveFromRolesAsync(user, rolesToRemove);
-            await _userManager.AddToRolesAsync(user, User.Roles);
+            await _userManager.AddToRolesAsync(user, EditUser.Roles);
             return RedirectToPage("./ManageUsers");
         }
     }
