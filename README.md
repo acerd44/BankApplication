@@ -4,7 +4,7 @@ This is a comprehensive banking system administration tool written in ASP.NET an
 This project was developed for my web development course in university.
 ## Features
 
-- **Database**: This uses a database first principle, the .bak file is included in the repository.
+- **Database**: This uses a database first principle, the .bak file can be downloaded [here](https://www.dropbox.com/scl/fi/3agsb6mo48u12kdviziom/BankAppDatav2-1.bak?rlkey=b4q7her90zenm8xn7ephh39ux&st=i1bzyi4i&dl=0).
 - **Customer and Account Management**: Create, Read, Update, and Delete (CRUD) operations for customers and users.
 - **User Roles**: Administrators have full access to manage users, customers, and accounts, while Cashiers can only handle customers and accounts.
 - **View Information**: Get detailed insights into customer information, transactions, and account balances.
@@ -33,3 +33,7 @@ This project was developed for my web development course in university.
    git clone https://github.com/acerd44/BankApplication.git
 2. Open the solution file in Visual Studo.
 
+### Azure Hosting
+- If you do not wish to install the database and the application, the website is also being hosted on Azure.
+- **Admin account (Email - Password)**: "admin.test@gmail.com" - "TestAccount123!"
+- **Cashier account (Email - Password)**: "cashier.test@gmail.com" - "TestAccount123!"
