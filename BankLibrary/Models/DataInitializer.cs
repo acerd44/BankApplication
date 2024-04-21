@@ -22,7 +22,9 @@ public class DataInitializer
     private void SeedUsers()
     {
         AddUserIfNotExists("richard.chalk@systementor.se", "Hejsan123#", new string[] { "Admin" });
+        AddUserIfNotExists("admin.test@gmail.com", "TestAccount123!", new string[] { "Admin" });
         AddUserIfNotExists("richard.erdos.chalk@gmail.se", "Hejsan123#", new string[] { "Cashier" });
+        AddUserIfNotExists("cashier.test@gmail.com", "TestAccount123!", new string[] { "Cashier" });
     }
 
     private void SeedRoles()
