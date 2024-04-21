@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace BankWeb
 {
-    public class Program // !Lol12345
+    public class Program
     {
         public static void Main(string[] args)
         {

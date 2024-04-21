@@ -4,7 +4,7 @@
     ViewData["Title"] = "Edit user";
 }
 <h1>Edit User</h1>
-
+<h6 class="text-dark">Leave both passwords empty if you wish to not change them.</h6>
 <form method="post">
     <div asp-validation-summary="All" class="text-danger"></div>
 
@@ -14,14 +14,16 @@
         <span asp-validation-for="EditUser.Email" class="text-danger"></span>
     </div>
     <div class="form-floating mb-3">
-        <label asp-for="EditUser.Password" class="form-label"></label>
-        <input asp-for="EditUser.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Please enter your old password." />
-        <span asp-validation-for="EditUser.Password" class="text-danger"></span>
+        <label asp-for="OldPassword" class="form-label">Old password</label>
+        <input asp-for="OldPassword" class="form-control" type="password" autocomplete="current-password" aria-required="true"
+               data-val="false" data-val-required="false" placeholder="Please enter your old password." />
+        <span asp-validation-for="OldPassword" class="text-danger"></span>
     </div>
     <div class="form-floating mb-3">
         <label asp-for="NewPassword" class="form-label"></label>
 
-        <input asp-for="NewPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Please enter your new password." />
+        <input asp-for="NewPassword" class="form-control" type="password" autocomplete="new-password" aria-required="true"
+               data-val="false" data-val-required="false" placeholder="Please enter your new password." />
         <span asp-validation-for="NewPassword" class="text-danger"></span>
     </div>
     <div class="form-group">

@@ -1,8 +1,11 @@
+using BankLibrary.Infrastructure;
 using BankLibrary.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System.ComponentModel.DataAnnotations;
 
 namespace BankWeb.Areas.Identity.Pages.Account.Manage
@@ -11,22 +14,26 @@ namespace BankWeb.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly IPasswordHasher<IdentityUser> _passwordHasher;
 
-        public EditUserModel(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, IPasswordHasher<IdentityUser> passwordHasher)
+        public EditUserModel(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _roleManager = roleManager;
-            _passwordHasher = passwordHasher;
         }
         [BindProperty]
         public IdentityUserViewModel EditUser { get; set; }
-        [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "New password")]
         [BindProperty]
+        [ValidateNever]
         public string NewPassword { get; set; }
+        [BindProperty]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Old password")]
+        [ValidateNever]
+        public string OldPassword { get; set; }
         public List<string> Roles { get; set; }
         public async Task<IActionResult> OnGetAsync(string userId)
         {
@@ -53,6 +60,8 @@ namespace BankWeb.Areas.Identity.Pages.Account.Manage
         {
             ModelState.Remove("EditUser.UserId");
             ModelState.Remove("EditUser.UserName");
+            ModelState.Remove("EditUser.Password");
+
             Roles = await _roleManager.Roles.Select(r => r.Name).ToListAsync();
 
             var user = await _userManager.FindByIdAsync(userId);
@@ -73,8 +82,14 @@ namespace BankWeb.Areas.Identity.Pages.Account.Manage
                     }
                     return Page();
                 }
+                TempData["Message"] = "User was successfully deleted.";
                 return RedirectToPage("./ManageUsers");
-
+            }
+            var dontChangePassword = (string.IsNullOrEmpty(OldPassword) && string.IsNullOrEmpty(NewPassword)) || (OldPassword.Equals("ligmaballs") && NewPassword.Equals("ligmaballs"));
+            if (dontChangePassword)
+            {
+                ModelState.Remove("OldPassword");
+                ModelState.Remove("NewPassword");
             }
 
             if (!ModelState.IsValid)
@@ -82,12 +97,12 @@ namespace BankWeb.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
-
             user.Email = EditUser.Email;
             user.UserName = EditUser.Email;
-            var changePasswordResult = await _userManager.ChangePasswordAsync(user, EditUser.Password, NewPassword);
+            IdentityResult? changePasswordResult = new();
+            if (!dontChangePassword) changePasswordResult = await _userManager.ChangePasswordAsync(user, OldPassword, NewPassword);
             var result = await _userManager.UpdateAsync(user);
-            if (!changePasswordResult.Succeeded)
+            if (!changePasswordResult.Succeeded && !dontChangePassword)
             {
                 ModelState.AddModelError("All", "Old password is incorrect");
                 return Page();
@@ -104,6 +119,7 @@ namespace BankWeb.Areas.Identity.Pages.Account.Manage
             var rolesToRemove = await _userManager.GetRolesAsync(user);
             await _userManager.RemoveFromRolesAsync(user, rolesToRemove);
             await _userManager.AddToRolesAsync(user, EditUser.Roles);
+            TempData["Message"] = "User was successfully updated.";
             return RedirectToPage("./ManageUsers");
         }
     }

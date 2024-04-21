@@ -1,9 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
-@* <nav class=""> *@
 
-@* <ul class="ms-auto nav mr-5"> *@
 @if (SignInManager.IsSignedIn(User))
 {
     <li>
@@ -24,5 +22,3 @@ else
         <a class="" asp-area="Identity" asp-page="/Account/Login">Login</a>
     </li>
 }
-@* </ul> *@
-@* </nav> *@

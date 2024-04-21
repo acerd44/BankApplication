@@ -41,6 +41,7 @@ namespace BankWeb.Areas.Identity.Pages.Account.Manage
             user.PasswordHash = _passwordHasher.HashPassword(user, User.Password);
             await _userManager.CreateAsync(user);
             await _userManager.AddToRolesAsync(user, User.Roles);
+            TempData["Message"] = "User was successfully created";
             return RedirectToPage("./ManageUsers");
         }
     }
