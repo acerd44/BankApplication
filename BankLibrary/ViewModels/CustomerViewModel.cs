@@ -8,5 +8,6 @@
         public string Country { get; set; } = null!;
         public string City { get; set; } = null!;
         public string Streetaddress { get; set; } = null!;
+        public bool IsActive { get; set; }
     }
 }

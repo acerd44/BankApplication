@@ -20,7 +20,7 @@ namespace BankLibrary.Services
         }
         public PagedResult<Customer> GetCustomers(string sortColumn, string sortOrder, int page, string search)
         {
-            var query = _context.Customers.Where(c => c.IsActive).AsQueryable();
+            var query = _context.Customers.AsQueryable();
             if (!string.IsNullOrEmpty(search))
             {
                 query = query.Where(c => c.Givenname.Contains(search) || c.City.Contains(search));
@@ -52,6 +52,13 @@ namespace BankLibrary.Services
                     query = query.OrderBy(c => c.City);
                 else if (sortOrder == "desc")
                     query = query.OrderByDescending(c => c.City);
+            }
+            else if (sortColumn == "Active")
+            {
+                if (sortOrder == "asc")
+                    query = query.OrderBy(c => c.IsActive);
+                else if (sortOrder == "desc")
+                    query = query.OrderByDescending(c => c.IsActive);
             }
             return query.GetPaged(page, 50);
         }

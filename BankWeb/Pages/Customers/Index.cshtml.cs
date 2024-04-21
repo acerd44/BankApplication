@@ -46,7 +46,8 @@ namespace BankWeb.Pages.Customers
                     Name = c.Givenname + " " + c.Surname,
                     Country = c.Country,
                     City = char.ToUpper(c.City[0]) + c.City.Substring(1).ToLower(),
-                    Streetaddress = c.Streetaddress
+                    Streetaddress = c.Streetaddress,
+                    IsActive = c.IsActive
                 }).ToList();
             return Page();
         }
