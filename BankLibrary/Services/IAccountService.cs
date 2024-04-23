@@ -1,5 +1,6 @@
 ﻿using BankLibrary.Infrastructure.Paging;
 using BankLibrary.Models;
+using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace BankLibrary.Services
         List<Account> GetAccounts(string country);
         List<Account> GetAccountsOfCustomer(int customerId);
         List<Account> GetTopTenAccounts(string country);
+        IEnumerable<Transaction> GetTransactions(int accountId);
         List<Transaction> GetMoreTransactions(int accountId, int pageNo);
         decimal GetBalanceOfAccounts(string country);
         void AddTransaction(int accountId, decimal amount, bool withdraw, string symbol);

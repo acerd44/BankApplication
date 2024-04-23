@@ -60,6 +60,12 @@ namespace BankLibrary.Services
             return _context.Accounts.Where(a => top10Ids.Contains(a.AccountId))
                 .ToList();
         }
+        public IEnumerable<Transaction> GetTransactions(int accountId)
+        {
+            return _context.Accounts.Where(a => a.AccountId == accountId)
+                .SelectMany(a => a.Transactions)
+                .OrderByDescending(t => t.Date);
+        }
         public List<Transaction> GetMoreTransactions(int accountId, int pageNo)
         {
             return _context.Accounts
