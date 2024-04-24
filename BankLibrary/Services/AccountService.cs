@@ -60,21 +60,6 @@ namespace BankLibrary.Services
             return _context.Accounts.Where(a => top10Ids.Contains(a.AccountId))
                 .ToList();
         }
-        public IEnumerable<Transaction> GetTransactions(int accountId)
-        {
-            return _context.Accounts.Where(a => a.AccountId == accountId)
-                .SelectMany(a => a.Transactions)
-                .OrderByDescending(t => t.Date);
-        }
-        public List<Transaction> GetMoreTransactions(int accountId, int pageNo)
-        {
-            return _context.Accounts
-                .Where(a => a.AccountId == accountId)
-                .SelectMany(a => a.Transactions)
-                .OrderByDescending(t => t.Date)
-                .GetPaged(pageNo, 20).Results
-                .ToList();
-        }
         public decimal GetBalanceOfAccounts(string country)
         {
             return GetAccounts(country).Sum(a => a.Balance);
@@ -112,6 +97,10 @@ namespace BankLibrary.Services
         public Account GetAccount(int accountId)
         {
             return _context.Accounts.Include(a => a.Transactions).FirstOrDefault(a => a.AccountId == accountId);
+        }
+        public Account GetAccount(Transaction transaction)
+        {
+            return _context.Accounts.Where(a => a.Transactions.Any(t => t.TransactionId == transaction.TransactionId)).First();
         }
         public string GetAccountOwner(int accountId)
         {

@@ -10,9 +10,11 @@ namespace BankWeb.Pages.Accounts
     public class ViewModel : PageModel
     {
         private readonly IAccountService _accountService;
-        public ViewModel(IAccountService accountService)
+        private readonly ITransactionService _transactionService;
+        public ViewModel(IAccountService accountService, ITransactionService transactionService)
         {
             _accountService = accountService;
+            _transactionService = transactionService;
         }
         public AccountViewModel Account { get; set; }
         public List<TransactionViewModel> Transactions { get; set; }
@@ -45,7 +47,7 @@ namespace BankWeb.Pages.Accounts
         }
         public IActionResult OnGetShowMore(int accountId, int pageNo)
         {
-            var transactionList = _accountService.GetMoreTransactions(accountId, pageNo).Select(
+            var transactionList = _transactionService.GetMoreTransactions(accountId, pageNo).Select(
                 t => new TransactionViewModel
                 {
                     Id = t.TransactionId,

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BankLibrary.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace BankLibrary.Services
 {
@@ -87,6 +88,17 @@ namespace BankLibrary.Services
         public Customer GetCustomer(int customerId)
         {
             return _context.Customers.FirstOrDefault(c => c.CustomerId == customerId);
+        }
+        public Customer GetCustomer(Transaction transaction)
+        {
+            var account = _context.Accounts.Where(a => a.Transactions.Any(t => t.TransactionId == transaction.TransactionId)).First();
+            return _context.Customers.Where(c => c.Dispositions.Any(d => d.AccountId == account.AccountId)).First();
+        }
+        public Customer GetCustomer(Account account)
+        {
+            return _context.Dispositions.Where(d => d.AccountId == account.AccountId)
+                .Select(d => d.Customer)
+                .First();
         }
         public bool ValidateEmail(string email)
         {

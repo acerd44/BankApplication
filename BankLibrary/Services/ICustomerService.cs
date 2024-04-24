@@ -17,6 +17,8 @@ namespace BankLibrary.Services
         List<Customer> GetCustomers(string country);
         List<TopTenCustomerViewModel> GetTopTenCustomers(string country);
         Customer GetCustomer(int customerId);
+        Customer GetCustomer(Transaction transaction);
+        Customer GetCustomer(Account account);
         bool ValidateEmail(string email);
         bool ValidateNationalId(string nationalId);
         void AddCustomer(Customer customer);

@@ -16,11 +16,10 @@ namespace BankLibrary.Services
         List<Account> GetAccounts(string country);
         List<Account> GetAccountsOfCustomer(int customerId);
         List<Account> GetTopTenAccounts(string country);
-        IEnumerable<Transaction> GetTransactions(int accountId);
-        List<Transaction> GetMoreTransactions(int accountId, int pageNo);
         decimal GetBalanceOfAccounts(string country);
         void AddTransaction(int accountId, decimal amount, bool withdraw, string symbol);
         Account GetAccount(int accountId);
+        Account GetAccount(Transaction transaction);
         string GetAccountOwner(int accountId);
         ResponseCode Withdraw(int accountId, decimal amount);
         ResponseCode Deposit(int accountId, decimal amount);

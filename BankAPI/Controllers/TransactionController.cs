@@ -9,15 +9,17 @@ namespace BankAPI.Controllers
     public class TransactionController : Controller
     {
         private readonly IAccountService _accountService;
-        public TransactionController(IAccountService accountService)
+        private readonly ITransactionService _transactionService;
+        public TransactionController(IAccountService accountService, ITransactionService transactionService)
         {
             _accountService = accountService;
+            _transactionService = transactionService;
         }
         [HttpGet("accountId")]
         public ActionResult<IEnumerable<TransactionViewModel>> GetTransactions(int accountId, int limit = 20, int offset = 0)
         {
             if (_accountService.GetAccount(accountId) == null) return NotFound();
-            var transactions = _accountService.GetTransactions(accountId);
+            var transactions = _transactionService.GetTransactions(accountId);
             transactions = transactions.Skip(offset).Take(limit);
 
             var transactionsView = transactions.Select(t => new TransactionViewModel
