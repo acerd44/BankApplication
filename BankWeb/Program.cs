@@ -24,6 +24,7 @@ namespace BankWeb
             builder.Services.AddTransient<DataInitializer>();
             builder.Services.AddTransient<ICustomerService, CustomerService>();
             builder.Services.AddTransient<IAccountService, AccountService>();
+            builder.Services.AddTransient<ITransactionService, TransactionService>();
             builder.Services.AddAutoMapper(typeof(Program).Assembly, typeof(BankLibrary.Infrastructure.AutoMapperProfile).Assembly);
             builder.Services.ConfigureApplicationCookie(options =>
             {

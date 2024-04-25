@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankLibrary", "BankLibrary\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankAPI", "BankAPI\BankAPI.csproj", "{23F1227D-203C-41CF-8481-DE82A8FF44BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankGuardian", "BankGuardian\BankGuardian.csproj", "{91F1B3CC-3978-4C47-A91F-1486F3144A13}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankGuardian", "BankGuardian\BankGuardian.csproj", "{91F1B3CC-3978-4C47-A91F-1486F3144A13}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

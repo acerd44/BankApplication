@@ -17,11 +17,13 @@ namespace BankWeb.Pages.Customers
     public class EditModel : PageModel
     {
         private readonly ICustomerService _customerService;
+        private readonly IAccountService _accountService;
         private readonly IMapper _mapper;
-        public EditModel(ICustomerService customerService, IMapper mapper)
+        public EditModel(ICustomerService customerService, IMapper mapper, IAccountService accountService)
         {
             _customerService = customerService;
             _mapper = mapper;
+            _accountService = accountService;
         }
         public CRUDCustomerViewModel Customer { get; set; }
         public int CustomerId { get; set; }
@@ -69,6 +71,7 @@ namespace BankWeb.Pages.Customers
                     if (activate)
                     {
                         customer.IsActive = true;
+                        _accountService.Activate(customer.CustomerId, true);
                         TempData["Message"] = "Update was successful and user was activated!";
                     }
                     customer.CountryCode = CountryMapper.GetCountryCode(Customer.Country);

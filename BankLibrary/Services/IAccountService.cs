@@ -20,6 +20,9 @@ namespace BankLibrary.Services
         void AddTransaction(int accountId, decimal amount, bool withdraw, string symbol);
         Account GetAccount(int accountId);
         Account GetAccount(Transaction transaction);
+        void AddAccount(int customerId);
+        void Activate(int id, bool customer);
+        void Deactivate(int accountId);
         string GetAccountOwner(int accountId);
         ResponseCode Withdraw(int accountId, decimal amount);
         ResponseCode Deposit(int accountId, decimal amount);

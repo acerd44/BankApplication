@@ -46,7 +46,7 @@ namespace BankLibrary.Services
         }
         public List<Account> GetAccountsOfCustomer(int customerId)
         {
-            return _context.Accounts.Where(a => a.Dispositions.Any(d => d.AccountId == a.AccountId && d.CustomerId == customerId) && a.IsActive).ToList();
+            return _context.Accounts.Where(a => a.Dispositions.Any(d => d.AccountId == a.AccountId && d.CustomerId == customerId)).ToList();
         }
         public List<Account> GetTopTenAccounts(string country)
         {
@@ -101,6 +101,53 @@ namespace BankLibrary.Services
         public Account GetAccount(Transaction transaction)
         {
             return _context.Accounts.Where(a => a.Transactions.Any(t => t.TransactionId == transaction.TransactionId)).First();
+        }
+        public void AddAccount(int customerId)
+        {
+            var account = new Account
+            {
+                Created = DateOnly.FromDateTime(DateTime.Today),
+                Balance = 0,
+                Frequency = "Monthly",
+                IsActive = true,
+            };
+            _context.Accounts.Add(account);
+            Update();
+            var disposition = new Disposition
+            {
+                CustomerId = customerId,
+                AccountId = account.AccountId,
+                Type = "OWNER"
+            };
+            account.Dispositions.Add(disposition);
+            Update();
+        }
+        public void Activate(int id, bool isCustomer)
+        {
+            if (isCustomer)
+            {
+                var customer = _context.Customers.First(c => c.CustomerId == id);
+                var accounts = GetAccountsOfCustomer(id);
+                if (accounts.Count != 0)
+                {
+                    foreach (var account in accounts)
+                    {
+                        account.IsActive = true;
+                    }
+                }
+            }
+            else
+            {
+                var account = GetAccount(id);
+                account.IsActive = true;
+            }
+            Update();
+        }
+        public void Deactivate(int accountId)
+        {
+            var account = GetAccount(accountId);
+            account.IsActive = false;
+            Update();
         }
         public string GetAccountOwner(int accountId)
         {
