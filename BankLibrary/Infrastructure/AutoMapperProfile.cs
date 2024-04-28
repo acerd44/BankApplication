@@ -20,6 +20,8 @@ namespace BankLibrary.Infrastructure
             CreateMap<CRUDCustomerViewModel, Customer>()
                 .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.Gender.ToString()))
                 .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Country.ToString()));
+
+            CreateMap<CustomerCardViewModel, Customer>().ReverseMap();
         }
     }
 }

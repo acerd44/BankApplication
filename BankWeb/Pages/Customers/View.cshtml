@@ -18,7 +18,7 @@
                 <h2>
                     @Model.Customer.Givenname @Model.Customer.Surname
                     <a asp-page="/Customers/Index" class="btn btn-primary float-right mt-2"><i class="fa-solid fa-arrow-left"></i> Back</a>
-                    <a asp-page="/Customers/Edit" asp-route-customerId="@Model.Customer.Id" class="btn btn-secondary float-right mt-2 mx-3"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                    <a asp-page="/Customers/Edit" asp-route-customerId="@Model.Customer.CustomerId" class="btn btn-secondary float-right mt-2 mx-3"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
                 </h2>
             </div>
             <div class="card-body">
@@ -76,7 +76,7 @@
                     <div class="form-group form-row">
                         <label class="col-sm-2 col-form-label">Customer Id</label>
                         <div class="col-sm-4">
-                            <input type="text" readonly class="form-control-plaintext" value="@Model.Customer.Id" />
+                            <input type="text" readonly class="form-control-plaintext" value="@Model.Customer.CustomerId" />
                         </div>
                         <label class="col-sm-1 col-form-label">Active</label>
                         <div class="col-sm-4">
@@ -89,7 +89,7 @@
             <h2 class="card-header">
                 <form method="post">
                     Accounts
-                    <button type="submit" asp-route-customerId="@Model.Customer.Id" asp-route-add="true"
+                    <button type="submit" asp-route-customerId="@Model.Customer.CustomerId" asp-route-add="true"
                             onclick="return confirm('Are you sure you want to add an account to this customer?')"
                             class="btn btn-primary float-right mt-2 mx-3">
                         <i class="fa-solid fa-user-plus"></i> Add
@@ -121,7 +121,7 @@
                                     <form method="post">
                                         @if (account.IsActive)
                                         {
-                                            <button type="submit" asp-route-customerId="@Model.Customer.Id" asp-route-accountId="@account.Id" asp-route-activate="false"
+                                            <button type="submit" asp-route-customerId="@Model.Customer.CustomerId" asp-route-accountId="@account.Id" asp-route-activate="false"
                                                     onclick="return confirm('Are you sure you want to deactivate this account?')"
                                                     class="btn btn-danger">
                                                 <i class="fa-solid fa-power-off"></i>
@@ -130,7 +130,7 @@
                                         }
                                         else if (!account.IsActive && Model.Customer.IsActive)
                                         {
-                                            <button type="submit" asp-route-customerId="@Model.Customer.Id" asp-route-accountId="@account.Id" asp-route-activate="true"
+                                            <button type="submit" asp-route-customerId="@Model.Customer.CustomerId" asp-route-accountId="@account.Id" asp-route-activate="true"
                                                     onclick="return confirm('Are you sure you want to activate this account?')"
                                                     class="btn btn-success">
                                                 <i class="fa-solid fa-power-off"></i>

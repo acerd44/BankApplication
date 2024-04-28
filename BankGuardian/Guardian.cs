@@ -23,7 +23,7 @@ namespace BankGuardian
 
         public void Check()
         {
-            if (!Directory.Exists("../../../reports")) Directory.CreateDirectory("../../../reports");
+            CreateDirectoryAndFiles();
             var countries = Enum.GetValues(typeof(Country))
                 .Cast<Country>()
                 .Skip(1)
@@ -31,24 +31,34 @@ namespace BankGuardian
                 .ToArray();
             List<Transaction> transactions = new();
             List<TransactionÍnfo> transactionsAboveLimit = new();
+            List<int> alreadyCheckedTransactions = new();
+            List<int> alreadyCheckedCustomers = new();
             List<int> customersAboveLimit = new();
+            FillListFromFile(ref alreadyCheckedTransactions, "../../../reports/checked_transactions.txt");
+            FillListFromFile(ref alreadyCheckedCustomers, "../../../reports/checked_customers.txt");
             for (int countryIndex = 0; countryIndex < 4; countryIndex++)
             {
+                if (File.Exists($"../../../reports/{countries[countryIndex]}_{DateTime.Now:yyyy_MM_dd}.txt"))
+                {
+                    Console.WriteLine("There has already been a check today. Stopping...");
+                    return;
+                }
                 Console.WriteLine("Checking " + countries[countryIndex]);
-                transactions = _transactionService.GetTransactions(countries[countryIndex]).Where(t => t.Date >= DateOnly.FromDateTime(DateTime.Now.AddDays(-1))).ToList();
-                //transactions = _transactionService.GetTransactions(countries[countryIndex])
-                //    .Where(t => t.Date >= DateOnly.FromDateTime(DateTime.Now.AddDays(-90)))
-                //    .ToList();
-                //transactionAmountInPast72Hours = transactions
-                //.Where(t => t.Date >= DateOnly.FromDateTime(DateTime.Now.AddDays(-180)))
-                //    .Where(t => t.Date >= DateOnly.FromDateTime(DateTime.Now.AddDays(-3)))
-                //    .Sum(t => t.Amount);
+                transactionsAboveLimit = new();
+                customersAboveLimit = new();
+                transactions = _transactionService.GetTransactions(countries[countryIndex])
+                    .Where(t => t.Date >= DateOnly.FromDateTime(DateTime.Now.AddDays(-1))
+                    && !alreadyCheckedTransactions.Contains(t.TransactionId)).ToList();
                 var accountsAboveLimit = _accountService.GetAccounts(countries[countryIndex])
                     .Where(a => a.Transactions
                        .Where(t => t.Date >= DateOnly.FromDateTime(DateTime.Now.AddDays(-3))).Sum(t => t.Amount) > 23000)
                     .Select(a => a.AccountId)
                     .ToList();
-                accountsAboveLimit.ForEach(a => customersAboveLimit.Add(_customerService.GetCustomer(_accountService.GetAccount(a)).CustomerId));
+                accountsAboveLimit.ForEach(a =>
+                {
+                    if (!alreadyCheckedCustomers.Contains(_customerService.GetCustomer(_accountService.GetAccount(a)).CustomerId))
+                        customersAboveLimit.Add(_customerService.GetCustomer(_accountService.GetAccount(a)).CustomerId);
+                });
                 for (int i = 0; i < transactions.Count; i++)
                 {
                     if (transactions[i].Amount >= 15000)
@@ -61,23 +71,70 @@ namespace BankGuardian
                             CustomerId = _customerService.GetCustomer(transactions[i]).CustomerId,
                             AccountId = _accountService.GetAccount(transactions[i]).AccountId
                         });
+                        alreadyCheckedTransactions.Add(transactions[i].TransactionId);
                     }
-                    //transactions.Where(t => t.Date >= DateOnly.FromDateTime(DateTime.Now.AddDays(-3)) >= 23000
                 }
+
                 using (StreamWriter sw = new($"../../../reports/{countries[countryIndex]}_{DateTime.Now:yyyy_MM_dd}.txt"))
                 {
                     sw.WriteLine($"Suspicious transactions in {countries[countryIndex]}");
                     sw.WriteLine("Transactions above 15000 SEK:");
-                    foreach (var t in transactionsAboveLimit)
+                    transactionsAboveLimit.ForEach(t =>
                     {
-                        transactionsAboveLimit.ForEach(t =>
+                        using (StreamWriter sw2 = new("../../../reports/checked_transactions.txt", true))
+                        {
+                            sw2.WriteLine(t.Transaction.TransactionId);
+                        }
                         sw.WriteLine($"Transaction ID: {t.Transaction.TransactionId} " +
                         $"- Customer ID: {t.CustomerId} " +
                         $"- Account ID: {t.AccountId} " +
-                        $"- Amount: SEK {t.Amount}"));
-                    }
+                        $"- Amount: SEK {t.Amount}");
+                    });
+                }
+                using (StreamWriter sw = new($"../../../reports/suspicious_customers_{DateTime.Now.AddDays(-3):yyyyMMdd}-{DateTime.Now:yyyyMMdd}.txt"))
+                {
                     sw.WriteLine("\nCustomers that have made transactions above 23000 SEK in total in the past 72 hours.");
-                    customersAboveLimit.ForEach(c => sw.WriteLine($"Customer ID: {c}"));
+                    sw.WriteLine($"Between {DateTime.Now.AddDays(-3):yyyy-MM-dd} and {DateTime.Now:yyyy-MM-dd}");
+                    customersAboveLimit.ForEach(c =>
+                    {
+                        using (StreamWriter sw2 = new("../../../reports/checked_customers.txt"))
+                        {
+                            sw2.WriteLine(c);
+                        }
+                        sw.WriteLine($"Customer ID: {c}");
+                    });
+                }
+                Console.WriteLine($"\nSuspicious transactions found: {transactionsAboveLimit.Count}");
+                Console.WriteLine($"Suspicious customers found: {customersAboveLimit.Count}");
+                Console.WriteLine("_____________________________________________________________________");
+            }
+        }
+        public static void CreateDirectoryAndFiles()
+        {
+            if (!Directory.Exists("../../../reports"))
+            {
+                Directory.CreateDirectory("../../../reports");
+            }
+            if (!File.Exists("../../../reports/checked_transactions.txt"))
+            {
+                using StreamWriter sr = new("../../../reports/checked_transactions.txt");
+            }
+            if (!File.Exists("../../../reports/checked_customers.txt"))
+            {
+                using StreamWriter sr = new("../../../reports/checked_customers.txt");
+            }
+        }
+        public static void FillListFromFile(ref List<int> list, string path)
+        {
+            using (StreamReader sr = new(path))
+            {
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    if (int.TryParse(line, out int customerId))
+                    {
+                        list.Add(customerId);
+                    }
                 }
             }
         }

@@ -15,6 +15,7 @@ namespace BankAPI
             builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
             builder.Services.AddTransient<ICustomerService, CustomerService>();
             builder.Services.AddTransient<IAccountService, AccountService>();
+            builder.Services.AddAutoMapper(typeof(Program).Assembly, typeof(BankLibrary.Infrastructure.AutoMapperProfile).Assembly);
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

@@ -4,19 +4,20 @@ using Microsoft.EntityFrameworkCore;
 namespace BankLibrary.Models;
 public class DataInitializer
 {
-    private readonly ApplicationDbContext _dbContext;
+    private readonly ApplicationDbContext _context;
     private readonly UserManager<IdentityUser> _userManager;
 
     public DataInitializer(ApplicationDbContext dbContext, UserManager<IdentityUser> userManager)
     {
-        _dbContext = dbContext;
+        _context = dbContext;
         _userManager = userManager;
     }
     public void SeedData()
     {
-        _dbContext.Database.Migrate();
+        _context.Database.Migrate();
         SeedRoles();
         SeedUsers();
+        SeedTransactions();
     }
 
     private void SeedUsers()
@@ -33,13 +34,21 @@ public class DataInitializer
         AddRoleIfNotExisting("Cashier");
     }
 
+    private void SeedTransactions()
+    {
+        AddTransaction(16000, 15, 0);
+        AddTransaction(6000, 25, -2);
+        AddTransaction(8000, 25, -2);
+        AddTransaction(12000, 25, -2);
+    }
+
     private void AddRoleIfNotExisting(string roleName)
     {
-        var role = _dbContext.Roles.FirstOrDefault(r => r.Name == roleName);
+        var role = _context.Roles.FirstOrDefault(r => r.Name == roleName);
         if (role == null)
         {
-            _dbContext.Roles.Add(new IdentityRole { Name = roleName, NormalizedName = roleName });
-            _dbContext.SaveChanges();
+            _context.Roles.Add(new IdentityRole { Name = roleName, NormalizedName = roleName });
+            _context.SaveChanges();
         }
     }
 
@@ -55,5 +64,27 @@ public class DataInitializer
         };
         _userManager.CreateAsync(user, password).Wait();
         _userManager.AddToRolesAsync(user, roles).Wait();
+    }
+
+    private void AddTransaction(decimal amount, int accountId, int days)
+    {
+        if (!_context.Transactions.Any(t => t.Amount == amount
+        && t.AccountId == accountId
+        && t.Date == DateOnly.FromDateTime(DateTime.Now.AddDays(days))))
+        {
+            {
+                _context.Transactions.Add(new Transaction
+                {
+                    AccountId = accountId,
+                    Date = DateOnly.FromDateTime(DateTime.Now.AddDays(days)),
+                    Amount = amount,
+                    Type = "Credit",
+                    Operation = "Credit in Cash",
+                    Balance = amount,
+                    Symbol = "lol"
+                });
+            }
+        }
+        _context.SaveChanges();
     }
 }

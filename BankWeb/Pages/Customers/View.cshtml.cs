@@ -28,7 +28,7 @@ namespace BankWeb.Pages.Customers
             {
                 Customer = new CustomerCardViewModel
                 {
-                    Id = customer.CustomerId,
+                    CustomerId = customer.CustomerId,
                     Birthday = customer.Birthday,
                     City = customer.City,
                     Country = customer.Country,
@@ -73,7 +73,7 @@ namespace BankWeb.Pages.Customers
             var customer = _customerService.GetCustomer(customerId);
             Customer = new CustomerCardViewModel
             {
-                Id = customer.CustomerId,
+                CustomerId = customer.CustomerId,
                 Birthday = customer.Birthday,
                 City = customer.City,
                 Country = customer.Country,

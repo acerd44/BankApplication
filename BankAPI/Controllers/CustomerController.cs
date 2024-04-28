@@ -1,4 +1,5 @@
-﻿using BankLibrary.Services;
+﻿using AutoMapper;
+using BankLibrary.Services;
 using BankLibrary.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
@@ -10,32 +11,20 @@ namespace BankAPI.Controllers
     public class CustomerController : Controller
     {
         private readonly ICustomerService _customerService;
-        public CustomerController(ICustomerService customerService)
+        private readonly IMapper _mapper;
+        public CustomerController(ICustomerService customerService, IMapper mapper)
         {
             _customerService = customerService;
+            _mapper = mapper;
         }
         [HttpGet("customerId")]
         public ActionResult<CustomerCardViewModel> GetCustomerCard(int customerId)
         {
             var customer = _customerService.GetCustomer(customerId);
             if (customer == null) return NotFound();
-            var customerView = new CustomerCardViewModel
-            {
-                Id = customer.CustomerId,
-                NationalId = customer.NationalId,
-                Surname = customer.Surname,
-                Givenname = customer.Givenname,
-                Birthday = customer.Birthday,
-                City = customer.City,
-                Country = customer.Country,
-                Emailaddress = customer.Emailaddress,
-                IsActive = customer.IsActive,
-                Gender = customer.Gender,
-                Streetaddress = customer.Streetaddress,
-                Telephonecountrycode = customer.Telephonecountrycode,
-                Telephonenumber = customer.Telephonenumber,
-                Zipcode = customer.Zipcode
-            };
+
+            var customerView = new CustomerCardViewModel();
+            _mapper.Map(customer, customerView);
             return customerView;
         }
     }
