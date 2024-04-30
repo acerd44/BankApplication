@@ -35,7 +35,7 @@ namespace BankWeb.Pages.Customers
                     Emailaddress = customer.Emailaddress ?? string.Empty,
                     Givenname = customer.Givenname,
                     Surname = customer.Surname,
-                    Gender = customer.Gender,
+                    Gender = char.ToUpper(customer.Gender[0]) + customer.Gender.Substring(1).ToLower(),
                     Streetaddress = customer.Streetaddress,
                     Telephonenumber = customer.Telephonenumber,
                     Telephonecountrycode = customer.Telephonecountrycode,

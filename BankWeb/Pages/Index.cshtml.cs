@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace BankWeb.Pages
 {
+    [ResponseCache(Duration = 60)]
     public class IndexModel : PageModel
     {
         private readonly ICustomerService _customerService;

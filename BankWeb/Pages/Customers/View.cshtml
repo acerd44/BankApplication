@@ -17,8 +17,8 @@
             <div class="card-header">
                 <h2>
                     @Model.Customer.Givenname @Model.Customer.Surname
-                    <a asp-page="/Customers/Index" class="btn btn-primary float-right mt-2"><i class="fa-solid fa-arrow-left"></i> Back</a>
-                    <a asp-page="/Customers/Edit" asp-route-customerId="@Model.Customer.CustomerId" class="btn btn-secondary float-right mt-2 mx-3"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                    <a asp-page="/Customers/Index" style="width:85px;" class="btn btn-primary float-right mt-2"><i class="fa-solid fa-arrow-left"></i> Back</a>
+                    <a asp-page="/Customers/Edit" asp-route-customerId="@Model.Customer.CustomerId" style="width:85px;" class="btn btn-secondary float-right mt-2 mx-3"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
                 </h2>
             </div>
             <div class="card-body">
@@ -89,9 +89,9 @@
             <h2 class="card-header">
                 <form method="post">
                     Accounts
-                    <button type="submit" asp-route-customerId="@Model.Customer.CustomerId" asp-route-add="true"
+                    <button style="width:85px;" type="submit" asp-route-customerId="@Model.Customer.CustomerId" asp-route-add="true"
                             onclick="return confirm('Are you sure you want to add an account to this customer?')"
-                            class="btn btn-primary float-right mt-2 mx-3">
+                            class="btn btn-primary float-right mt-2">
                         <i class="fa-solid fa-user-plus"></i> Add
                     </button>
                 </form>
@@ -114,14 +114,17 @@
                         @foreach (var account in Model.Accounts)
                         {
                             <tr>
-                                <td>@account.Id</td>
-                                <td>@account.Created</td>
-                                <td>SEK @account.Balance</td>
-                                <td>
+                                <td class="">@account.Id</td>
+                                <td class="">@account.Created</td>
+                                <td class="">SEK @account.Balance</td>
+                                <td style="padding:0;padding-top:5px;">
+                                    <a asp-page="/Accounts/View" asp-route-accountId="@account.Id" class="btn btn-primary" style="width:150px;height:38px;"><i class="fa-solid fa-eye"></i> View</a>
+                                </td>
+                                <td style="padding:0;padding-top:5px;">
                                     <form method="post">
                                         @if (account.IsActive)
                                         {
-                                            <button type="submit" asp-route-customerId="@Model.Customer.CustomerId" asp-route-accountId="@account.Id" asp-route-activate="false"
+                                            <button style="width:150px;height: 38px;" type="submit" asp-route-customerId="@Model.Customer.CustomerId" asp-route-accountId="@account.Id" asp-route-activate="false"
                                                     onclick="return confirm('Are you sure you want to deactivate this account?')"
                                                     class="btn btn-danger">
                                                 <i class="fa-solid fa-power-off"></i>
@@ -130,7 +133,7 @@
                                         }
                                         else if (!account.IsActive && Model.Customer.IsActive)
                                         {
-                                            <button type="submit" asp-route-customerId="@Model.Customer.CustomerId" asp-route-accountId="@account.Id" asp-route-activate="true"
+                                            <button style="width:150px;height: 38px; type="submit" asp-route-customerId="@Model.Customer.CustomerId" asp-route-accountId="@account.Id" asp-route-activate="true"
                                                     onclick="return confirm('Are you sure you want to activate this account?')"
                                                     class="btn btn-success">
                                                 <i class="fa-solid fa-power-off"></i>
@@ -140,10 +143,7 @@
                                     </form>
 
                                 </td>
-                                <td>
-                                    <a asp-page="/Accounts/View" asp-route-accountId="@account.Id" class="btn btn-primary"><i class="fa-solid fa-eye"></i> View</a>
 
-                                </td>
                             </tr>
                         }
                     </tbody>

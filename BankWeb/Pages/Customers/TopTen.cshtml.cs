@@ -1,3 +1,4 @@
+using BankLibrary.Models;
 using BankLibrary.Services;
 using BankLibrary.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -15,9 +16,11 @@ namespace BankWeb.Pages.Customers
         }
         public List<TopTenCustomerViewModel> TopTenCustomers { get; set; }
         public string Country { get; set; }
+        public string CountryCode { get; set; }
         public void OnGet(string country)
         {
             Country = country;
+            CountryCode = CountryMapper.GetCountryCode(Country);
             TopTenCustomers = _customerService.GetTopTenCustomers(country);
         }
     }

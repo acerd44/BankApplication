@@ -22,7 +22,20 @@ namespace BankLibrary.Services
         {
             return Enum.GetName(typeof(CountryCode), CountryMap[country])!;
         }
+        public static string GetCountryCode(string country)
+        {
+            var countryEnum = (Country)Enum.Parse(typeof(Country), country);
+            return Enum.GetName(typeof(CountryCode), CountryMap[countryEnum])!;
+        }
 
+        public static string GetCountry(Country country)
+        {
+            return Enum.GetName(typeof(Country), country)!;
+        }
+        public static Country GetCountry(string country)
+        {
+            return (Country)Enum.Parse(typeof(Country), country);
+        }
         public static string GetTelephoneCode(string country)
         {
             switch (country)
@@ -37,10 +50,6 @@ namespace BankLibrary.Services
                     return "358";
             }
             return string.Empty;
-        }
-        public static string GetCountry(Country country)
-        {
-            return Enum.GetName(typeof(Country), country)!;
         }
     }
 }

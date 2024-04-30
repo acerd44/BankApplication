@@ -15,4 +15,8 @@
     <ProjectReference Include="..\BankLibrary\BankLibrary.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="reports\" />
+  </ItemGroup>
+
 </Project>

@@ -22,21 +22,27 @@
                 <li class="active">
                     <a asp-area="" asp-page="/Index"><span class="fa fa-home"></span> Home</a>
                 </li>
-                @if (SignInManager.IsSignedIn(User) && (User.IsInRole("Admin") || User.IsInRole("Cashier")))
+                @if (SignInManager.IsSignedIn(User))
                 {
-                    <li>
-                        <a asp-area="" asp-page="/Customers/Index"><span class="fa fa-users"></span> Customers</a>
-                    </li>
-                    <li>
-                        <a asp-area="" asp-page="/Accounts/Index"><span class="fa fa-credit-card"></span> Accounts</a>
-                    </li>
-                    <li>
-                        <a class="" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><span class="fa fa-user"></span>Admin</a>
-                    </li>
+                    if (User.IsInRole("Cashier"))
+                    {
+                        <li>
+                            <a asp-area="" asp-page="/Customers/Index"><span class="fa fa-users"></span> Customers</a>
+                        </li>
+                        <li>
+                            <a asp-area="" asp-page="/Accounts/Index"><span class="fa fa-credit-card"></span> Accounts</a>
+                        </li>
+                    }
+                    else if (User.IsInRole("Admin"))
+                    {
+                        <li>
+                            <a class="" asp-area="Identity" asp-page="/Account/Manage/ManageUsers" title="Manage"><span class="fa fa-user"></span>Admin</a>
+                        </li>
+                    }
                     <li>
                         <a>
-                            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
-                                <button type="submit" class="btn text-light">
+                            <form class="form-inline text-center" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
+                                <button type="submit" class="btn text-light text-center">
                                     <span class="fa fa-left-from-bracket"></span> Logout
                                 </button>
                             </form>
@@ -53,65 +59,14 @@
                     </li>
                 }
             </ul>
-
-            <div class="footer">
-                <p>
-                    Copyright &copy;@DateTime.Now.Year All rights reserved | Made by Hossén Rahimzadegan
-                </p>
+            <div class="footer" style="font-size:12px">
+                Made by <br />Hossén Rahimzadegan
             </div>
         </nav>
 
         <!-- Page Content  -->
         <div id="content" class="p-4 p-md-5">
-
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
-
-                    <button type="button" id="sidebarCollapse" class="btn btn-primary">
-                        <i class="fa fa-bars"></i>
-                        <span class="sr-only">Toggle Menu</span>
-                    </button>
-                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <i class="fa fa-bars"></i>
-                    </button>
-
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="nav navbar-nav ml-auto">
-                            <li class="nav-item active">
-                                <a class="nav-link" asp-area="" asp-page="/Index">Home</a>
-                            </li>
-                            @if (SignInManager.IsSignedIn(User) && (User.IsInRole("Admin") || User.IsInRole("Cashier")))
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-page="/Customers/Index">Customers</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-page="/Accounts/Index">Accounts</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Admin</a>
-                                </li>
-                                <li class="nav-item">
-                                    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
-                                        <button type="submit" class="nav-link btn btn-link" style="font-size:14px;padding-top:0.57rem;">Logout</button>
-                                    </form>
-                                </li>
-                            }
-                            else
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="Identity" asp-page="/Account/Login" title="login">Login</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="Identity" asp-page="/Account/Register" title="register">Register</a>
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-            @RenderBody()
-            ;
+            @RenderBody();
         </div>
     </div>
 

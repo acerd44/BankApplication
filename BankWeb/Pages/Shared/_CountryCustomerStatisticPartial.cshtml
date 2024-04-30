@@ -2,7 +2,7 @@
 
 
 <div class="pb-2 col-md-5 col-xl-3">
-    <a class="row justify-content-center" asp-page="/Customers/TopTen" asp-route-country="@Model.Country"><img src="~/images/@Model.Country-Flag-icon.png" /></a>
+    <a class="row justify-content-center" asp-page="/Customers/TopTen" asp-route-country="@Model.Country"><img class="img-fluid rounded" src="~/images/@Model.Country-Flag-icon.png" style="opacity: 0.8; transition: opacity 0.3s ease, width 0.3s ease; width: 100px; height: auto;" onmouseover="this.style.opacity='1'; this.style.width='110px';" onmouseout="this.style.opacity='0.8'; this.style.width='100px';"></a>
     <div class="card bg-primary order-card">
         <div class="card-block">
             <h6>Total customers in @Model.Country<i class="fa-solid fa-users f-right"></i></h6>

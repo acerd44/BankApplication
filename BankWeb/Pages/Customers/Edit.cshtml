@@ -67,10 +67,10 @@
                     </select>
                     <span asp-validation-for="Customer.Gender" class="field-validation-error text-danger"></span>
                 </div>
-                <button asp-route-customerId="@Model.CustomerId" asp-route-delete="false" type="submit" class="btn btn-success float-left"><i class="fa-solid fa-floppy-disk"></i> Update</button>
+                <button asp-route-customerId="@Model.CustomerId" asp-route-delete="false" type="submit" class="btn btn-success"><i class="fa-solid fa-floppy-disk"></i> Update</button>
                 @if (!Model.Customer.IsActive)
                 {
-                    <button asp-route-customerId="@Model.CustomerId" asp-route-activate="true" type="submit" class="btn btn-success float-right"><i class="fa-solid fa-power-off"></i> Activate</button>
+                    <button asp-route-customerId="@Model.CustomerId" asp-route-activate="true" type="submit" class="btn btn-success"><i class="fa-solid fa-power-off"></i> Activate</button>
                 }
                 else
                 {
