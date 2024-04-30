@@ -22,6 +22,7 @@ namespace BankLibrary.Infrastructure
                 .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Country.ToString()));
 
             CreateMap<CustomerCardViewModel, Customer>().ReverseMap();
+            CreateMap<APICustomerViewModel, Customer>().ReverseMap();
         }
     }
 }
