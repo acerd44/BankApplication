@@ -17,8 +17,6 @@ namespace BankWeb
             builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
             builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
-                .AddDefaultTokenProviders()
-                .AddDefaultUI()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
             builder.Services.AddTransient<DataInitializer>();

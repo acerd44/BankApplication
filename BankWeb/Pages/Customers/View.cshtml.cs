@@ -30,7 +30,7 @@ namespace BankWeb.Pages.Customers
                 {
                     CustomerId = customer.CustomerId,
                     Birthday = customer.Birthday,
-                    City = customer.City,
+                    City = char.ToUpper(customer.City[0]) + customer.City.Substring(1).ToLower(),
                     Country = customer.Country,
                     Emailaddress = customer.Emailaddress ?? string.Empty,
                     Givenname = customer.Givenname,

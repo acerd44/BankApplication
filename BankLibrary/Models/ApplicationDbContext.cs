@@ -31,8 +31,8 @@ public partial class ApplicationDbContext : IdentityDbContext
     public virtual DbSet<Transaction> Transactions { get; set; }
 
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Server=localhost;Database=BankAppData;Trusted_Connection=True;TrustServerCertificate=true;MultipleActiveResultSets=true");
+    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //    => optionsBuilder.UseSqlServer("Server=localhost;Database=BankAppData;Trusted_Connection=True;TrustServerCertificate=true;MultipleActiveResultSets=true");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -147,21 +147,6 @@ public partial class ApplicationDbContext : IdentityDbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Transactions_Accounts");
         });
-
-        //modelBuilder.Entity<User>(entity =>
-        //{
-        //    entity.HasKey(e => e.UserId).HasName("PK_User_UserID");
-
-        //    entity.ToTable("User");
-
-        //    entity.Property(e => e.UserId).HasColumnName("UserID");
-        //    entity.Property(e => e.FirstName).HasMaxLength(40);
-        //    entity.Property(e => e.LastName).HasMaxLength(40);
-        //    entity.Property(e => e.LoginName).HasMaxLength(40);
-        //    entity.Property(e => e.PasswordHash)
-        //        .HasMaxLength(64)
-        //        .IsFixedLength();
-        //});
 
         OnModelCreatingPartial(modelBuilder);
     }
