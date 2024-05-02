@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankWeb", "BankWeb\BankWeb.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankLibrary", "BankLibrary\BankLibrary.csproj", "{4A6F92AE-714A-442F-97BB-A27F1ABFDAC6}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankAPI", "BankAPI\BankAPI.csproj", "{23F1227D-203C-41CF-8481-DE82A8FF44BF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankGuardian", "BankGuardian\BankGuardian.csproj", "{91F1B3CC-3978-4C47-A91F-1486F3144A13}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{4A6F92AE-714A-442F-97BB-A27F1ABFDAC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A6F92AE-714A-442F-97BB-A27F1ABFDAC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A6F92AE-714A-442F-97BB-A27F1ABFDAC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23F1227D-203C-41CF-8481-DE82A8FF44BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23F1227D-203C-41CF-8481-DE82A8FF44BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23F1227D-203C-41CF-8481-DE82A8FF44BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23F1227D-203C-41CF-8481-DE82A8FF44BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91F1B3CC-3978-4C47-A91F-1486F3144A13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91F1B3CC-3978-4C47-A91F-1486F3144A13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91F1B3CC-3978-4C47-A91F-1486F3144A13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91F1B3CC-3978-4C47-A91F-1486F3144A13}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

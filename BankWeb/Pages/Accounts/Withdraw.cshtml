@@ -1,0 +1,22 @@
+﻿@page
+@model WithdrawModel
+@{
+    ViewData["Title"] = "Withdraw";
+}
+<div class="card w-25" style="position: fixed;top: 50%;left: 50%;transform: translate(-40%, -50%);">
+    <div class="card-header">
+        <h1>Withdraw <a asp-page="/Accounts/Index" class="btn btn-primary m-3 float-right"><i class="fa-solid fa-arrow-left"></i> Back</a></h1>
+
+    </div>
+    <div class="card-body">
+        <h3>Balance: SEK @Model.Balance</h3>
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Amount">Amount</label>
+                <input type="number" class="form-control" asp-for="Amount" />
+                <span class="field-validation-error text-danger" asp-validation-for="Amount"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Withdraw</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+﻿@page
+@model BankWeb.Areas.Identity.Pages.Account.Manage.EditUserModel
+@{
+    ViewData["Title"] = "Edit user";
+}
+<h1>Edit User</h1>
+<h6 class="text-dark">Leave both passwords empty if you wish to not change them.</h6>
+<form method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label for="Email">Email/Username</label>
+        <input asp-for="EditUser.Email" class="form-control" />
+        <span asp-validation-for="EditUser.Email" class="text-danger"></span>
+    </div>
+    <div class="form-floating mb-3">
+        <label asp-for="OldPassword" class="form-label">Old password</label>
+        <input asp-for="OldPassword" class="form-control" type="password" autocomplete="current-password" aria-required="true"
+               data-val="false" data-val-required="false" placeholder="Please enter your old password." />
+        <span asp-validation-for="OldPassword" class="text-danger"></span>
+    </div>
+    <div class="form-floating mb-3">
+        <label asp-for="NewPassword" class="form-label"></label>
+
+        <input asp-for="NewPassword" class="form-control" type="password" autocomplete="new-password" aria-required="true"
+               data-val="false" data-val-required="false" placeholder="Please enter your new password." />
+        <span asp-validation-for="NewPassword" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="Input_Roles">Roles</label>
+        <select asp-for="EditUser.Roles" class="form-control" asp-items="@(new SelectList(Model.Roles))" multiple></select>
+        <span asp-validation-for="EditUser.Roles" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="submit" class="btn btn-danger" name="deleteUser">Delete</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

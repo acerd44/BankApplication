@@ -1,27 +1,55 @@
 using BankLibrary.Models;
+using BankLibrary.Services;
+using BankLibrary.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace BankWeb.Pages
 {
+    [ResponseCache(Duration = 60)]
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
-        private readonly ApplicationDbContext _context;
-        public int Customers { get; set; }
-        public int Accounts { get; set; }
-        public decimal BalanceSum { get; set; }
-        public IndexModel(ILogger<IndexModel> logger, ApplicationDbContext context)
+        private readonly ICustomerService _customerService;
+        private readonly IAccountService _accountService;
+        public List<CountryStatisticViewModel> CountryStatistics { get; set; }
+        public IndexModel(ICustomerService customerService, IAccountService accountService)
         {
-            _logger = logger;
-            _context = context;
+            _customerService = customerService;
+            _accountService = accountService;
         }
-
         public void OnGet()
         {
-            Customers = _context.Customers.Count();
-            Accounts = _context.Accounts.Count();
-            BalanceSum = _context.Transactions.Sum(t => t.Balance);
+            CountryStatistics = new()
+            {
+                new CountryStatisticViewModel
+                {
+                    Country = "Sweden",
+                    AccountCount = _accountService.GetAccounts("Sweden").Count(),
+                    CustomerCount = _customerService.GetCustomers("Sweden").Count(),
+                    TotalBalance = _accountService.GetBalanceOfAccounts("Sweden"),
+                },
+                new CountryStatisticViewModel
+                {
+                    Country = "Denmark",
+                    AccountCount = _accountService.GetAccounts("Denmark").Count(),
+                    CustomerCount = _customerService.GetCustomers("Denmark").Count(),
+                    TotalBalance = _accountService.GetBalanceOfAccounts("Denmark"),
+                },
+                new CountryStatisticViewModel
+                {
+                    Country = "Norway",
+                    AccountCount = _accountService.GetAccounts("Norway").Count(),
+                    CustomerCount = _customerService.GetCustomers("Norway").Count(),
+                    TotalBalance = _accountService.GetBalanceOfAccounts("Norway"),
+                },
+                new CountryStatisticViewModel
+                {
+                    Country = "Finland",
+                    AccountCount = _accountService.GetAccounts("Finland").Count(),
+                    CustomerCount = _customerService.GetCustomers("Finland").Count(),
+                    TotalBalance = _accountService.GetBalanceOfAccounts("Finland"),
+                }
+            };
         }
     }
 }
