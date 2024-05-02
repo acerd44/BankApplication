@@ -2,10 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using BankLibrary.ViewModels;
-public class UserRoleViewModel
-{
-
-}
+using Microsoft.EntityFrameworkCore;
 namespace BankWeb.Areas.Identity.Pages.Account.Manage
 {
     public class ManageUsersModel : PageModel
@@ -23,8 +20,8 @@ namespace BankWeb.Areas.Identity.Pages.Account.Manage
         public async Task OnGetAsync()
         {
             UsersWithRoles = new();
-
-            foreach (var user in _userManager.Users)
+            var users = await _userManager.Users.ToListAsync();
+            foreach (var user in users)
             {
                 var roles = await _userManager.GetRolesAsync(user);
                 UsersWithRoles.Add(new IdentityUserViewModel { UserId = user.Id, UserName = user.UserName, Roles = roles });
