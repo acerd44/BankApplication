@@ -5,7 +5,7 @@ It also includes a Web API for checking customer info and transaction lists and 
 This project was developed for my web development course in university.
 ## Features
 
-- **Azure Hosting**: It is being hosted on Azure [here](https://hossenbank.azurewebsites.net/). 
+- **Azure Hosting**: It is being hosted on Azure [here](https://hossenbank.azurewebsites.net/). (Currently down to due to some issues)
 - **Database**: This uses a database first principle, the .bak file can be downloaded [here](https://www.dropbox.com/scl/fi/3agsb6mo48u12kdviziom/BankAppDatav2-1.bak?rlkey=b4q7her90zenm8xn7ephh39ux&st=i1bzyi4i&dl=0).
 - **Customer and Account Management**: Create, Read, Update, and Delete (CRUD) operations for customers and users.
 - **User Roles**: Administrators have full access to manage users, customers, and accounts, while Cashiers can only handle customers and accounts.
