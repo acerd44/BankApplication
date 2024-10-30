@@ -3,6 +3,7 @@
 This is a comprehensive banking system administration tool written in ASP.NET and EF Core Razor Pages. This web application offers a range of features for managing customers, accounts, and users (both admins and cashiers), all designed with a user-friendly interface based on Bootstrap template. 
 It also includes a Web API for checking customer info and transaction lists and a Console App checking for suspicious transactions.
 This project was developed for my web development course in university.
+[Short demo here](https://youtu.be/GYXWeir5Htk)
 ## Features
 
 - **Azure Hosting**: It is being hosted on Azure [here](https://hossenbank.azurewebsites.net/). (Currently down to due to some issues)
